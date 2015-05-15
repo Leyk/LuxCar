@@ -11,7 +11,7 @@ if(!isset($_REQUEST['uc'])) {
 $uc = $_REQUEST['uc'];
 switch ($uc) {
 	case 'accueil':{
-		include("controleurs/c_connexion.php");
+		include("vues/v_accueil.html");
 		break;
 	}
 	case 'connexion':{
