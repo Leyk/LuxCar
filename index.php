@@ -19,6 +19,13 @@ switch ($uc) {
 		include("controleurs/c_connexion.php");
 		break;
 	}
+	case 'catalogue':{
+		include("controleurs/c_catalogue.php");
+		break;
+	}
+	case 'inscription':{
+		include("controleurs/c_inscription.php");
+	}
 	default:{
 		include("vues/v_accueil.html");
 		break;

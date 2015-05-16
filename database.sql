@@ -21,8 +21,8 @@ INSERT INTO Categorie VALUES ("CL","Client");
 CREATE TABLE IF NOT EXISTS Inscrit (
 	idInscrit smallint(4) NOT NULL auto_increment,
 	idCategorie char(2) NOT NULL,
-	nomInscrit varchar(20),
-	prenomInscrit varchar(20),
+	nomInscrit varchar(20) NOT NULL,
+	prenomInscrit varchar(20) NOT NULL,
 	mailInscrit varchar(50) NOT NULL,
 	pswInscrit varchar(20) NOT NULL,
 	token varchar(15),

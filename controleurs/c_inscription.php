@@ -1,14 +1,14 @@
 <?php
 if(!isset($_REQUEST['action'])){
-	$_REQUEST['action'] = 'demandeConnexion';
+	$_REQUEST['action'] = 'demandeInscription';
 }
 $action = $_REQUEST['action'];
 switch ($action) {
-	case 'demandeConnexion':{
-		include ("vues/v_connexion.php");
+	case 'demandeInscription':{
+		include ("vues/v_inscription.php");
 		break;
 	}
-	case 'valideConnexion':{
+	case 'valideInscription':{
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
 		$utilisateur = $pdo->getInfosUtilisateur($login,$mdp);
@@ -32,7 +32,7 @@ switch ($action) {
 		echo "Vous avez bien été déconnecté";
 	}
 	default:{
-		include ("vues/v_connexion.php");
+		include ("vues/v_inscription.php");
 		break;
 	}
 }
