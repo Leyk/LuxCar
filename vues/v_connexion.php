@@ -16,7 +16,7 @@ if (isset($_REQUEST['erreurs']))
 					<label for="nom">Login (adresse mail)</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="login" type="text" name="login" size="30" maxlength="45" placeholder="login">
+							<input class="form-control" id="login" type="text" name="login" size="30" maxlength="45" placeholder="Login" required>
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@ if (isset($_REQUEST['erreurs']))
 					<label for="mdp">Mot de passe</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="mdp" type="password" name="mdp" size="30" maxlength="45" placeholder="mot de passe">
+							<input class="form-control" id="mdp" type="password" name="mdp" size="30" maxlength="45" placeholder="Mot de passe" required>
 						</div>
 					</div>
 				</div>

@@ -9,14 +9,30 @@ if (isset($_REQUEST['erreurs']))
 	}
 }
 ?>
-		<form class="form-vertical" method="POST" action="index.php?uc=inscription&action=valideinscription">
+		<form class="form-vertical" method="POST" action="index.php?uc=inscription&action=valideInscription">
 			<fieldset>
-				<legend> Veuillez saisir vos identifiants : </legend>
+				<legend> Formulaire d'inscription : </legend>
 				<div class="form-group">
-					<label for="nom">Login (adresse mail)</label>
+					<label for="nom">Nom</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="login" type="text" name="login" size="30" maxlength="45" placeholder="login">
+							<input class="form-control" id="nom" type="text" name="nom" size="30" maxlength="45" placeholder="Nom" required>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="prenom">Prénom</label>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<input class="form-control" id="prenom" type="text" name="prenom" size="30" maxlength="45" placeholder="Prénom" required>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="nom">Adresse mail</label>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<input class="form-control" id="mail" type="text" name="mail" size="30" maxlength="45" placeholder="Adresse mail" required>
 						</div>
 					</div>
 				</div>
@@ -24,7 +40,7 @@ if (isset($_REQUEST['erreurs']))
 					<label for="mdp">Mot de passe</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="mdp" type="password" name="mdp" size="30" maxlength="45" placeholder="mot de passe">
+							<input class="form-control" id="mdp" type="password" name="mdp" size="30" maxlength="45" placeholder="Mot de passe" required>
 						</div>
 					</div>
 				</div>

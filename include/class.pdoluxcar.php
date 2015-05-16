@@ -38,15 +38,34 @@ class PdoLxc{
 // Retourne les informations d'un utilisateur
 	public function getInfosUtilisateur($login,$mdp){
 		try{
-		$req = 'select idInscrit, nomInscrit, prenomInscrit, token from inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
+		$req = 'SELECT idInscrit, nomInscrit, prenomInscrit, token from inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 		}
 		catch (Exception $e){
-			echo "Erreur de requête : ", $e->getMessage();
+			echo "Erreur de récupération des données Utilisateur : ", $e->getMessage();
 		}	
 	}
 
+// Vérifie si une adresse mail existe déjà
+	public function checkMail($mail){
+		try{
+			$req = 'select mailInscrit from inscrit where mailInscrit="'.$mail.'"';
+			$rs = PdoLxc::$monPdo->query($req);
+			$ligne = $rs->fetch();
+			return $ligne;
+		}
+		catch(Exception $e){
+			echo "Erreur de vérification de mail : ", $e->getMessage();
+		}
+	}
+
+// Créer un utilisateur qu'il s'inscrit
+	public function creerNouvelUtilisateur($nom,$prenom,$mail,$mdp){
+		$req = 'INSERT INTO inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) VALUES ("CL","'.$nom.'","'.$prenom.'","'.$mail.'","'.$mdp.'")';
+		$res=PdoLxc::$monPdo->exec($req);
+		return $res;
+	}
 
 }

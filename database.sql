@@ -87,11 +87,45 @@ INSERT INTO Couleur (nomCouleur, imgCouleur) VALUES ("blanc","images/couleur/bla
 
 CREATE TABLE IF NOT EXISTS Options(
 	idOption smallint(4) NOT NULL auto_increment,
-	nomOption varchar(25),
-	descriptionOption varchar(100),
+	nomOption varchar(50),
+	descriptionOption varchar(200) DEFAULT " ",
 	prixOption float(8,2),
 	PRIMARY KEY (idOption)
 	) ENGINE=InnoDB CHARACTER SET latin1;
+
+-- Insertion table 'Options'
+
+INSERT INTO Options (nomOption, prixOption) VALUES ("Pack confort",1614.50);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Pack Business",2168.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Kit fumeur",60.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Finition carbone",3000.90);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Sieges chauffants","Grâce à ce système de sièges chauffants, vous ne passerez plus jamais l'hiver de la même façon dans votre berline",960.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Toit ouvrant",524.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Vitres teintées",960.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Volant en bois precieux",836.50);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Volant en or massif","Ce volant vous permettra d'avoir la classe absolue",50006.50);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Wifi Hotspot",840.90);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Alarme antivol",550.50);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Avertisseur d'angle mort",650.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Camera de recul",500.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Fonction TV",500.50);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Régulateur de vitesse",1790.99);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Systeme Hi-fi","Profitez d'un son UHD qui décoiffe",500.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Volant chauffant",275.90);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Station multimedia","Grâce à cette station multimédia, vos trajets vous paraîtront moins long malgré la limitation de vitesse",3140.00);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Pack Confort +","Ce pack confort optimum vous rappellera qui est le boss",9788.90);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Pack interieur bois",1644.50);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Jante 911 Turbo",1320.90);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Ventilation des sièges",1068.99);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Volant SportDesign",420.99);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Ecran côté passage","Cet écran peut être un bon moyen pour divertir votre co-pilote si celui-ci commence à vous ennuyer",324.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Phares antibrouillard arriere",500.90);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Plaque dedicacee",480.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Roue de secours",2640.00);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Camera de parking arriere","Pratique pour éviter que votre berline ne grignotte les murs lorsque vous vous garez", 2640.90);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Peinture anti-rayures","Grâce à cette superbe peinture anti-rayures, vous pourrez vous permettre de rentrer dans la clio d'à côté lors de vos créneaux",15292.90);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Siège passager éjectable","Si la compagnie de votre co-pilote devient un supplice, vous ne regretterez pas cette investissement", 26550.99);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Système Plaque Immatriculation Interchangeable","Grâce à votre deuxième plaque d'immatriculation cachée, fini les problèmes de radars", 18620.00);
 
 -- Structure de la table 'Modèle'
 

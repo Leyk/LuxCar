@@ -9,27 +9,28 @@ switch ($action) {
 		break;
 	}
 	case 'valideInscription':{
-		$login = $_REQUEST['login'];
+		$nom = $_REQUEST['nom'];
+		$prenom = $_REQUEST['prenom'];
+		$mail = $_REQUEST['mail'];
 		$mdp = $_REQUEST['mdp'];
-		$utilisateur = $pdo->getInfosUtilisateur($login,$mdp);
-		if(!is_array($utilisateur)){
-			ajouterErreur("Login ou mot de passe incorrecte","connexion");
-			include ("vues/v_connexion.php");
+		$utilisateur = $pdo->checkMail($mail);
+		if(is_array($utilisateur)){
+			ajouterErreur("Cette adresse mail est déjà utilisée","inscription");
+			include ("vues/v_inscription.php");
 		}
 		else{
-			$id = $utilisateur['idInscrit'];
-			// GENERER ICI UN TOKEN ALEATOIRE
-			$token = $utilisateur['token'];
-			connecter($id,$token);
-			include("vues/v_accueil.html");
-			// A SUPPR
-			echo "Bonjour ".$utilisateur['prenomInscrit'];
+			$ok=$pdo->creerNouvelUtilisateur($nom,$prenom,$mail,$mdp);
+			if ($ok){
+				// A ARRANGER
+				echo "Inscription réussie";
+				include("vues/v_accueil.html");
+			}
+			else{
+				ajouterErreur("Echec de l'inscription","inscription");
+				include ("vues/v_inscription.php");
+			}
 		}
 		break;
-	}
-	case 'deconnexion':{
-		deconnecter();
-		echo "Vous avez bien été déconnecté";
 	}
 	default:{
 		include ("vues/v_inscription.php");

@@ -25,6 +25,7 @@ switch ($uc) {
 	}
 	case 'inscription':{
 		include("controleurs/c_inscription.php");
+		break;
 	}
 	default:{
 		include("vues/v_accueil.html");
