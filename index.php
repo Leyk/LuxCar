@@ -2,6 +2,7 @@
 require_once ("include/fonctions.php");
 require_once ("include/class.pdoluxcar.php");
 include ("vues/v_entete.html");
+include("vues/v_menu.php");
 session_start();
 $pdo = PdoLxc::getPdoLxc();
 $estConnecte = estConnecte(); // connexion d'un utilisateur
@@ -19,7 +20,7 @@ switch ($uc) {
 		break;
 	}
 	default:{
-		include("controleurs/c_connexion.php");
+		include("vues/v_accueil.html");
 		break;
 	}
 }
