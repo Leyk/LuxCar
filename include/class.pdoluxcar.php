@@ -83,4 +83,12 @@ class PdoLxc{
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
 	}
+
+// Récupère les options existantes dans la bd
+	public function getLesOptions(){
+		$req = 'SELECT nomOption, descriptionOption, prixOption FROM options ORDER BY nomOption';
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+		return $ligne;
+	}
 }

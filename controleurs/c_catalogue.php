@@ -20,14 +20,14 @@ switch ($action) {
 		}
 		include("vues/v_modele.php");
 		break;
-	case 'choisirOption':{
+	}
+	case 'choisirOptions':{
 		$lesOptions = $pdo->getLesOptions();
 		if(!is_array($lesOptions)){
 			ajouterErreur("Erreur de chargement des options","catalogue");
 		}
 		include("vues/v_option.php");
 		break;
-	}
 	}
 	default:{
 		echo "erreur" ;

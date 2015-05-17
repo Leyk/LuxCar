@@ -8,9 +8,6 @@
 				<a href="index.php?uc=catalogue&action=choisirMarque">Catalogue</a>
 			</li>
 			<li>
-				<a href="index.php?uc=catalogue&action=demandeDevis">Créer un devis</a>
-			</li>
-			<li>
 				<a href="index.php?uc=administration&action=demanderAdministration">Administration</a>
 			</li>
 			<li>

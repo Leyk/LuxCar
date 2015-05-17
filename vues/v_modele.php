@@ -18,7 +18,7 @@
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixModele ?> €</td>
           <td><?php echo $descrModele ?></td>
-          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=catalogue&action=choixOptions'" class="btn btn-primary"> 
+          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=catalogue&action=choisirOptions'" class="btn btn-primary"> 
           <?php
          }
           ?>
