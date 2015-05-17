@@ -51,7 +51,7 @@ class PdoLxc{
 // Vérifie si une adresse mail existe déjà
 	public function checkMail($mail){
 		try{
-			$req = 'select mailInscrit from inscrit where mailInscrit="'.$mail.'"';
+			$req = 'SELECT mailInscrit FROM inscrit WHERE mailInscrit="'.$mail.'"';
 			$rs = PdoLxc::$monPdo->query($req);
 			$ligne = $rs->fetch();
 			return $ligne;
@@ -70,7 +70,15 @@ class PdoLxc{
 
 // Récupère les marques existantes dans la bd
 	public function getLesMarques(){
-		$req = 'SELECT nomMarque, logoMarque from marque';
+		$req = 'SELECT idMarque, nomMarque, logoMarque FROM marque';
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+		return $ligne;
+	}
+
+// Récupère les modèles de la marque passée en paramètre
+	public function getLesModeles($id_marque){
+		$req = 'SELECT nomModele, imgModele, prixModele, descriptionModele FROM modele WHERE idMarque ='.$id_marque ;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;

@@ -5,7 +5,7 @@
 				<a href="index.php?uc=accueil">Accueil</a>
 			</li>
 			<li>
-				<a href="index.php?uc=catalogue&action=consulterCatalogue">Catalogue</a>
+				<a href="index.php?uc=catalogue&action=choisirMarque">Catalogue</a>
 			</li>
 			<li>
 				<a href="index.php?uc=catalogue&action=demandeDevis">Créer un devis</a>

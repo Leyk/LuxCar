@@ -132,10 +132,10 @@ INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Système
 CREATE TABLE IF NOT EXISTS Modele(
 	idModele smallint(3) NOT NULL auto_increment,
 	idMarque smallint(3) NOT NULL,
-	nomModele varchar(20) NOT NULL,
+	nomModele varchar(30) NOT NULL,
 	imgModele varchar(50),
 	prixModele float(9,2) NOT NULL DEFAULT 0,
-	descriptionModele varchar(100),
+	descriptionModele varchar(100) DEFAULT " ",
 	nbDisponible int,
 	PRIMARY KEY (idModele),
 	CONSTRAINT fk_modele_marque FOREIGN KEY (idMarque) REFERENCES Marque(idMarque)
@@ -143,20 +143,66 @@ CREATE TABLE IF NOT EXISTS Modele(
 
 -- Insertion table 'Modèle'
 
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vantage","images/modele/1_1.png",80000,15);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"DB9","images/modele/1_2.png",75000,12);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Rapide S","images/modele/1_3.png",85000,9);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vanquish","images/modele/1_4.png",95000,5);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vantage","images/modele/1_1.png",180000.90,15);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"DB9","images/modele/1_2.png",175000.99,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Rapide S","images/modele/1_3.png",185000.50,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vanquish","images/modele/1_4.png",195000,5);
 
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"A7","images/modele/2_1.png",55000,22);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"A8","images/modele/2_2.png",63000,21);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"TT","images/modele/2_3.png",75000,12);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"R8","images/modele/2_4.png",108000,9);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"RS","images/modele/2_5.png",95000,10);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"A8","images/modele/2_2.png",73000.99,21);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"TT","images/modele/2_3.png",105000,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"R8","images/modele/2_4.png",118000.90,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"RS","images/modele/2_5.png",125000,10);
 
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 2 Cabriolet","images/modele/3_1.png",37500.80,30);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 3 Berline","images/modele/3_2.png",29000.99,10);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 4 Coupé","images/modele/3_3.png",39200,20);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 5 Berline","images/modele/3_4.png",39500.99,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 6 Cabriolet","images/modele/3_5.png",93450,8);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (3,"Série 6 Gran Coupé","images/modele/3_5.png",86550.50,6);
 
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (4,"Veyron","images/modele/4_1.jpg",2350000.99,1);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (4,"Grand sport","images/modele/4_2.jpeg",2500000,3);
 
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"LaFerrari","images/modele/5_1.jpg",1200000.90,2);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"F12 Berlinetta","images/modele/5_2.jpg",290000.50,5);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"Spider","images/modele/5_3.jpg",285000.30,4);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"FF","images/modele/5_4.jpg",290000,8);
 
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"XE Prestige","images/modele/6_1.png",41210.99,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"XJ","images/modele/6_2.png",82400,7);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"F-Type R Coupé","images/modele/6_3.png",107660.90,10);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Veneno","images/modele/7_1.jpg",3300000.90,3);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Aventador","images/modele/7_2.jpg",392000.99,6);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Huracan","images/modele/7_3.jpg",260000,4);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Gallardo","images/modele/7_4.jpg",220000.99,7);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"CT 200h","images/modele/8_1.png",27990.50,17);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"IS 250","images/modele/8_2.png",43390,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"RC F","images/modele/8_3.png",79790.90,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"LS 600h L","images/modele/8_4.png",150500,5);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Ghibli","images/modele/9_1.jpg",67250,11);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Quattroporte GTS","images/modele/9_2.jpg",150700.99,10);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranTurismo MC Stradale","images/modele/9_3.jpg",154950.99,11);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranCabrio MC","images/modele/9_4.jpg",153800,13);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"Classe E Cabriolet","images/modele/10_1.png",95000,13);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"SLK","images/modele/10_2.png",88000.90,8);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"Classe S Coupé","images/modele/10_3.png",100000.50,5);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"Classe E Cabriolet","images/modele/10_4.png",98000,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"Classe E Coupé","images/modele/10_5.png",99999.99,3);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"Boxster","images/modele/11_1.png",82430.50,15);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"Cayman","images/modele/11_2.png",88310,6);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"911","images/modele/11_3.png",140285.90,3);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"918 Spyder","images/modele/11_4.png",777997.90,3);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"Panamera","images/modele/11_5.png",166000.99,8);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"Macan","images/modele/11_6.png",84000,4);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (11,"Cayenne","images/modele/11_7.png",170000,2);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (12,"Lykan hypersport","images/modele/12_1.jpg",3600000,1);
 
 -- Structure de la table 'Etat' (spécifie l'état d'un devis : A traiter (TR), validé (VA), annulé (AN),  informatif (IN))
 
