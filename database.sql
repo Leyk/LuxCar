@@ -45,18 +45,18 @@ CREATE TABLE IF NOT EXISTS Marque(
 
 -- Insertion table 'Marque'
 
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Aston Martin","images/logo/tn_logo_audi.jpg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Aston Martin","images/logo/tn_logo_astonmartin.jpeg");
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Audi","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("BMW","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Bugatti","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Ferrari","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Jaguar","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Lamborghini","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Lexus","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Maserati","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Mercedes","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Porsche","images/logo/tn_logo_audi.jpg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("W Motors","images/logo/tn_logo_audi.jpg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("BMW","images/logo/tn_logo_bmw.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Bugatti","images/logo/tn_logo_bugatti.png");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Ferrari","images/logo/tn_logo_ferrari.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Jaguar","images/logo/tn_logo_jaguar.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Lamborghini","images/logo/tn_logo_lamborghini.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Lexus","images/logo/tn_logo_lexus.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Maserati","images/logo/tn_logo_maserati.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Mercedes","images/logo/tn_logo_mercedes.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Porsche","images/logo/tn_logo_porsche.jpeg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("W Motors","images/logo/tn_logo_wmotors.jpeg");
 
 -- Structure de la table 'Couleur'
 
@@ -140,6 +140,23 @@ CREATE TABLE IF NOT EXISTS Modele(
 	PRIMARY KEY (idModele),
 	CONSTRAINT fk_modele_marque FOREIGN KEY (idMarque) REFERENCES Marque(idMarque)
 	) ENGINE=InnoDB CHARACTER SET latin1;
+
+-- Insertion table 'Modèle'
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vantage","images/modele/1_1.png",80000,15);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"DB9","images/modele/1_2.png",75000,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Rapide S","images/modele/1_3.png",85000,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (1,"Vanquish","images/modele/1_4.png",95000,5);
+
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"A7","images/modele/2_1.png",55000,22);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"A8","images/modele/2_2.png",63000,21);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"TT","images/modele/2_3.png",75000,12);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"R8","images/modele/2_4.png",108000,9);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (2,"RS","images/modele/2_5.png",95000,10);
+
+
+
+
 
 -- Structure de la table 'Etat' (spécifie l'état d'un devis : A traiter (TR), validé (VA), annulé (AN),  informatif (IN))
 

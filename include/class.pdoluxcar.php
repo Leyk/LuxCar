@@ -68,4 +68,11 @@ class PdoLxc{
 		return $res;
 	}
 
+// Récupère les marques existantes dans la bd
+	public function getLesMarques(){
+		$req = 'SELECT nomMarque, logoMarque from marque';
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+		return $ligne;
+	}
 }
