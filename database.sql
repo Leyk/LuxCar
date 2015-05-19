@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Inscrit (
 
 INSERT INTO Inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) VALUES ("AD","Savornin","Simon","simon.savornin@polytech.univ-montp2.fr","admin");
 
--- Insertion des clients inscrits dans 'Inscrit'
+-- Insertion des clients inscrits dans 'Inscrit' (merci au générateur de données http://www.mockaroo.com)
 
 insert into Inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) values ('CL', 'Owens', 'Billy', 'bowens0@ft.com', 'yG95TZju');
 insert into Inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) values ('CL', 'Cunningham', 'William', 'wcunningham1@cyberchimps.com', 'CIlWTa');
