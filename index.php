@@ -1,11 +1,9 @@
 <?php 
 require_once ("include/fonctions.php");
 require_once ("include/class.pdoluxcar.php");
-include ("vues/v_entete.html");
+include ("vues/v_entete.php");
 include("vues/v_menu.php");
-session_start();
 $pdo = PdoLxc::getPdoLxc();
-$estConnecte = estConnecte(); // connexion d'un utilisateur
 if(!isset($_REQUEST['uc'])) {
 	$_REQUEST['uc'] = 'accueil';
 }
@@ -33,5 +31,6 @@ switch ($uc) {
 	}
 }
 include("vues/v_pied.html");
+
 ?>
 

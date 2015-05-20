@@ -21,8 +21,20 @@ switch ($action) {
 		include("vues/v_modele.php");
 		break;
 	}
+	case 'creerDevis':{
+		
+		$lesOptions = $pdo->getLesOptions();
+		if(!is_array($lesOptions)){
+			ajouterErreur("Erreur de chargement des options","catalogue");
+		}
+		include("vues/v_option.php");
+		break;
+	}
 	case 'choisirOptions':{
 		$lesOptions = $pdo->getLesOptions();
+		$idopt = $_REQUEST['id'];
+
+		echo $idopt;
 		if(!is_array($lesOptions)){
 			ajouterErreur("Erreur de chargement des options","catalogue");
 		}

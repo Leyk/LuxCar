@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Inscrit (
 	prenomInscrit varchar(20) NOT NULL,
 	mailInscrit varchar(50) NOT NULL,
 	pswInscrit varchar(20) NOT NULL,
-	token varchar(15),
+	token varchar(25),
 	PRIMARY KEY (idInscrit),
 	CONSTRAINT fk_inscrit_categorie FOREIGN KEY (idCategorie) REFERENCES Categorie(idCategorie)
 	 ) ENGINE=InnoDB CHARACTER SET latin1 auto_increment=1000;

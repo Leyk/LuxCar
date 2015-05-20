@@ -35,16 +35,52 @@ class PdoLxc{
 		return PdoLxc::$monPdoLxc;
 	}
 
+
+// Enregistre dans une variable session le token d'un utilisateur
+function connecter($id){
+	try{
+		$_COOKIE['idUser'] = $id;
+		$token = uniqid();
+		$_COOKIE['tokenUser'] = $token;
+		$req = 'UPDATE Inscrit SET token ="'.$token.'" WHERE idInscrit ='.$id;
+		$rs = PdoLxc::$monPdo->exec($req);	
+		return $rs;
+	}
+	catch (Exception $e){
+			echo "Erreur de récupération de connexion utilisateur : ", $e->getMessage();
+		}	
+}
+
+// Déconnecte l'utilisateur
+function deconnecter($id) {
+	try{
+		$req = 'UPDATE Inscrit SET token = NULL WHERE idInscrit='.$id;
+		$rs = PdoLxc::$monPdo->exec($req);
+		$_COOKIE['idUser'] = "";
+		$_COOKIE['tokenUser'] = "";
+		return $rs;
+	}
+	catch (Exception $e){
+			echo "Erreur delete du token : ", $e->getMessage();
+		}	
+}
+
+// Teste si un utilisateur est connecté
+function estConnecte(){
+	return isset($_COOKIE['idUser']);
+	
+}
+
 // Retourne les informations d'un utilisateur
-	public function getInfosUtilisateur($login,$mdp){
+	public function checkUser($login,$mdp){
 		try{
-		$req = 'SELECT idInscrit, nomInscrit, prenomInscrit, token from inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
+		$req = 'SELECT idInscrit from inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 		}
 		catch (Exception $e){
-			echo "Erreur de récupération des données Utilisateur : ", $e->getMessage();
+			echo "Identifiants incorrects : ", $e->getMessage();
 		}	
 	}
 
@@ -84,11 +120,31 @@ class PdoLxc{
 		return $ligne;
 	}
 
+// Récupère l'utilisateur actuellement connecté
+	public function getUserConnecte(){
+		if (estConnecte()) {
+			try{
+				$req = 'SELECT idInscrit, nomInscrit, prenomInscrit from inscrit where token="'.$_COOKIE['userToken'];
+				$rs = PdoLxc::$monPdo->query($req);
+				$ligne = $rs->fetch();
+				return $ligne;
+			}
+			catch (Exception $e){
+			echo "Erreur de récupération des données Utilisateur : ", $e->getMessage();
+			}	
+		}
+	}
+
 // Récupère les options existantes dans la bd
 	public function getLesOptions(){
-		$req = 'SELECT nomOption, descriptionOption, prixOption FROM options ORDER BY nomOption';
+		$req = 'SELECT idOption, nomOption, descriptionOption, prixOption FROM options ORDER BY nomOption';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
+	}
+
+// Crée un devis
+	public function creerDevis(){
+		$iduser = $monPdo->getUserConnecte().['idInscrit'];
 	}
 }
