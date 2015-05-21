@@ -3,9 +3,9 @@ setcookie('idUser', '', time() + 365*24*3600, '/', null, false, true); // Cookie
 setcookie('tokenUser', time() + 365*24*3600, null, '/', false, true); // Cookie qui contiendra le token généré
 require_once ("include/fonctions.php");
 require_once ("include/class.pdoluxcar.php");
+$pdo = PdoLxc::getPdoLxc();
 include ("vues/v_entete.php");
 include("vues/v_menu.php");
-$pdo = PdoLxc::getPdoLxc();
 if(!isset($_REQUEST['uc'])) {
 	$_REQUEST['uc'] = 'accueil';
 }

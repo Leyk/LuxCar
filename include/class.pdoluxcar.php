@@ -68,8 +68,22 @@ function deconnecter($id) {
 
 // Teste si un utilisateur est connecté
 function estConnecte(){
-	return isset($_COOKIE['idUser']);
-	
+	if (isset($_COOKIE['idUser']) and isset($_COOKIE['idUser'])){
+		$id = $_COOKIE['idUser'];
+		$token = $_COOKIE['tokenUser'];
+		$req = 'SELECT idInscrit FROM Inscrit WHERE token="'.$token.'" and idInscrit='.$id;
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		if(!is_array($ligne)){
+			return False;
+		}
+		else {
+			return True;
+		}
+	}
+	else{
+		return False;
+	}
 }
 
 // Retourne les informations d'un utilisateur

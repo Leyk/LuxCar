@@ -16,17 +16,13 @@
       		<div class="row">
     			<div class="col-md-8">
         			<h1>Luxurious Cars</h1>
-               <?php 
-               if(isset($_COOKIE['idUser'])){
-                  echo "bonjour ".$_COOKIE['idUser'];
-                } 
-                else { 
-                  echo "non connecté";}
-                   if(isset($_COOKIE['tokenUser'])){
-                  echo "    votre token : ".$_COOKIE['tokenUser'];
-                } 
-                else { 
-                  echo "    non connecté";}  ?>
+             <?php if ($pdo->estConnecte()){
+              echo "True";
+             }
+             else {
+              echo "False";
+             }
+             ?>
         	    </div>
         	</div>
       	</header>
