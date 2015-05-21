@@ -19,16 +19,16 @@ switch ($action) {
 		else{
 			$id = $utilisateur['idInscrit'];
 			$pdo->connecter($id);
-			include("vues/v_accueil.html");
-			echo "c_connexion".$_COOKIE['idUser'];
+			echo "Connexion effectuée, vous allez être redirigé dans 3 secondes";
+			header('Refresh : 3; URL=index.php');
 		}
 		break;
 	}
 	case 'deconnexion':{
-		
+		$id = $_COOKIE['idUser'];
 		$pdo->deconnecter($id);
-
-		echo "Vous avez bien été déconnecté";
+		echo "Vous avez bien été déconnecté".$_COOKIE['idUser'].", vous allez être redirigé dans 2 secondes";
+		header('Refresh : 2; URL=index.php');
 	}
 	default:{
 		include ("vues/v_connexion.php");

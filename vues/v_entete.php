@@ -1,9 +1,3 @@
-<?php 
-setcookie('idUser', time() + 365*24*3600, null, null, false, true); // Cookie qui contiendra l'ID de l'utilisateur
-setcookie('tokenUser', time() + 365*24*3600, null, null, false, true); // Cookie qui contiendra le token généré
-
-?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,10 +16,17 @@ setcookie('tokenUser', time() + 365*24*3600, null, null, false, true); // Cookie
       		<div class="row">
     			<div class="col-md-8">
         			<h1>Luxurious Cars</h1>
-              <?php
-                if(isset($_COOKIE['idUser'])){
+               <?php 
+               if(isset($_COOKIE['idUser'])){
                   echo "bonjour ".$_COOKIE['idUser'];
-                  } else { echo "non connecté";} ?>
+                } 
+                else { 
+                  echo "non connecté";}
+                   if(isset($_COOKIE['tokenUser'])){
+                  echo "    votre token : ".$_COOKIE['tokenUser'];
+                } 
+                else { 
+                  echo "    non connecté";}  ?>
         	    </div>
         	</div>
       	</header>

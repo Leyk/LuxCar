@@ -1,4 +1,6 @@
-<?php 
+<?php
+setcookie('idUser', '', time() + 365*24*3600, '/', null, false, true); // Cookie qui contiendra l'ID de l'utilisateur
+setcookie('tokenUser', time() + 365*24*3600, null, '/', false, true); // Cookie qui contiendra le token généré
 require_once ("include/fonctions.php");
 require_once ("include/class.pdoluxcar.php");
 include ("vues/v_entete.php");
@@ -31,6 +33,5 @@ switch ($uc) {
 	}
 }
 include("vues/v_pied.html");
-
 ?>
 

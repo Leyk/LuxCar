@@ -39,9 +39,10 @@ class PdoLxc{
 // Enregistre dans une variable session le token d'un utilisateur
 function connecter($id){
 	try{
-		$_COOKIE['idUser'] = $id;
+		//$_COOKIE['idUser'] = $id;
+		setcookie('idUser',$id);
 		$token = uniqid();
-		$_COOKIE['tokenUser'] = $token;
+		setcookie('tokenUser',$token);
 		$req = 'UPDATE Inscrit SET token ="'.$token.'" WHERE idInscrit ='.$id;
 		$rs = PdoLxc::$monPdo->exec($req);	
 		return $rs;
@@ -56,8 +57,8 @@ function deconnecter($id) {
 	try{
 		$req = 'UPDATE Inscrit SET token = NULL WHERE idInscrit='.$id;
 		$rs = PdoLxc::$monPdo->exec($req);
-		$_COOKIE['idUser'] = "";
-		$_COOKIE['tokenUser'] = "";
+		setcookie('idUser','',-1);
+		setcookie('tokenUser','',-1);
 		return $rs;
 	}
 	catch (Exception $e){
