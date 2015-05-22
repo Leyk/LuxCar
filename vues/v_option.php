@@ -1,5 +1,14 @@
 <div class="row">
-
+<?php
+if (isset($_REQUEST['erreurs']))
+{
+  foreach($_REQUEST['erreurs'] as $erreur)
+  {
+    echo '<h4 class="text-danger">'.$erreur.'</h4>';
+  }
+}
+else{
+?>
 <table class="table table-bordered table-striped table-condensed">
    <caption>
       <h4>Options compatibles</h4>
@@ -25,4 +34,5 @@
     </tbody>
     <button type="submit" class="btn btn-primary">Valider les Options</button>
 </table>
+<?php } ?>
 </div>

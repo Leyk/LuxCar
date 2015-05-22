@@ -18,7 +18,7 @@ class PdoLxc{
 			PdoLxc::$monPdo = new PDO(PdoLxc::$serveur.';'.PdoLxc::$bd, PdoLxc::$user, PdoLxc::$mdp);
 			PdoLxc::$monPdo->query("SET CHARACTER SET utf8");
 		}
-		catch (Exception $e){
+		catch (PDOException $e){
 			echo "Erreur de connexion au serveur : ", $e->getMessage();
 		}	
 	}
@@ -35,40 +35,35 @@ class PdoLxc{
 		return PdoLxc::$monPdoLxc;
 	}
 
-
 // Enregistre dans une variable session le token d'un utilisateur
 function connecter($id){
-	try{
-		//$_COOKIE['idUser'] = $id;
 		setcookie('idUser',$id);
 		$token = uniqid();
 		setcookie('tokenUser',$token);
 		$req = 'UPDATE Inscrit SET token ="'.$token.'" WHERE idInscrit ='.$id;
-		$rs = PdoLxc::$monPdo->exec($req);	
+		$rs = PdoLxc::$monPdo->exec($req);
+		$reqselec = 'SELECT prenomInscrit FROM Inscrit WHERE token ="'.$token.'" AND idInscrit ='.$id;
+		$rsselec = PdoLxc::$monPdo->query($reqselec);
+		$user = $rsselec->fetch();
+		$prenom = $user['prenomInscrit'];
+		setcookie('prenomUser',$prenom);
 		return $rs;
-	}
-	catch (Exception $e){
-			echo "Erreur de récupération de connexion utilisateur : ", $e->getMessage();
-		}	
 }
 
 // Déconnecte l'utilisateur
 function deconnecter($id) {
-	try{
 		$req = 'UPDATE Inscrit SET token = NULL WHERE idInscrit='.$id;
 		$rs = PdoLxc::$monPdo->exec($req);
 		setcookie('idUser','',-1);
 		setcookie('tokenUser','',-1);
+		setcookie('prenomUser','',-1);
+		setcookie('categorieUser','',-1);
 		return $rs;
-	}
-	catch (Exception $e){
-			echo "Erreur delete du token : ", $e->getMessage();
-		}	
 }
 
 // Teste si un utilisateur est connecté
 function estConnecte(){
-	if (isset($_COOKIE['idUser']) and isset($_COOKIE['idUser'])){
+	if (isset($_COOKIE['tokenUser']) and isset($_COOKIE['idUser'])){
 		$id = $_COOKIE['idUser'];
 		$token = $_COOKIE['tokenUser'];
 		$req = 'SELECT idInscrit FROM Inscrit WHERE token="'.$token.'" and idInscrit='.$id;
@@ -81,35 +76,25 @@ function estConnecte(){
 			return True;
 		}
 	}
-	else{
+	else {
 		return False;
 	}
 }
 
 // Retourne les informations d'un utilisateur
 	public function checkUser($login,$mdp){
-		try{
 		$req = 'SELECT idInscrit from inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
-		}
-		catch (Exception $e){
-			echo "Identifiants incorrects : ", $e->getMessage();
-		}	
 	}
 
 // Vérifie si une adresse mail existe déjà
 	public function checkMail($mail){
-		try{
 			$req = 'SELECT mailInscrit FROM inscrit WHERE mailInscrit="'.$mail.'"';
 			$rs = PdoLxc::$monPdo->query($req);
 			$ligne = $rs->fetch();
 			return $ligne;
-		}
-		catch(Exception $e){
-			echo "Erreur de vérification de mail : ", $e->getMessage();
-		}
 	}
 
 // Créer un utilisateur qu'il s'inscrit
@@ -129,26 +114,12 @@ function estConnecte(){
 
 // Récupère les modèles de la marque passée en paramètre
 	public function getLesModeles($id_marque){
-		$req = 'SELECT nomModele, imgModele, prixModele, descriptionModele FROM modele WHERE idMarque ='.$id_marque ;
+		$req = 'SELECT idModele, nomModele, imgModele, prixModele, descriptionModele FROM modele WHERE idMarque ='.$id_marque ;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
 	}
 
-// Récupère l'utilisateur actuellement connecté
-	public function getUserConnecte(){
-		if (estConnecte()) {
-			try{
-				$req = 'SELECT idInscrit, nomInscrit, prenomInscrit from inscrit where token="'.$_COOKIE['userToken'];
-				$rs = PdoLxc::$monPdo->query($req);
-				$ligne = $rs->fetch();
-				return $ligne;
-			}
-			catch (Exception $e){
-			echo "Erreur de récupération des données Utilisateur : ", $e->getMessage();
-			}	
-		}
-	}
 
 // Récupère les options existantes dans la bd
 	public function getLesOptions(){
@@ -158,8 +129,32 @@ function estConnecte(){
 		return $ligne;
 	}
 
+// Récupère l'utilisateur actuellement connecté
+	public function getUserConnecte(){
+		if (isset($_COOKIE['tokenUser']) and isset($_COOKIE['idUser'])){
+			$req = 'SELECT idInscrit, nomInscrit, prenomInscrit, idCategorie from inscrit where token="'.$_COOKIE['tokenUser'].'" AND idInscrit='.$_COOKIE['idUser'];
+			$rs = PdoLxc::$monPdo->query($req);
+			$ligne = $rs->fetch();
+			return $ligne;
+		}
+	}
+
+// Récupère le prix d'un modèle de voiture à partir de son ID
+	public function getPrixMod($id){
+		$req = 'SELECT prixModele from modele WHERE idModele ='.$id ;
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
+
 // Crée un devis
-	public function creerDevis(){
-		$iduser = $monPdo->getUserConnecte().['idInscrit'];
+	public function creerDevis($mar, $mod){
+		$user = $this->getUserConnecte();
+		$iduser = $user['idInscrit'];
+		$lemodele = $this->getPrixMod($mod);
+		$prix = $lemodele['prixModele'];
+		$req = 'INSERT INTO devis (idInscrit, idMarque, idModele, dateDevis, prixDevis) VALUES ('.$iduser.','.$mar.','.$mod.','.date("Ymd").','.$prix.')';
+		$rs = PdoLxc::$monPdo->exec($req);
+		return $rs;
 	}
 }

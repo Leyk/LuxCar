@@ -1,5 +1,14 @@
 <div class="row">
-
+<?php
+if (isset($_REQUEST['erreurs']))
+{
+  foreach($_REQUEST['erreurs'] as $erreur)
+  {
+    echo '<h4 class="text-danger">'.$erreur.'</h4>';
+  }
+}
+else{
+?>
 <table class="table table-bordered table-striped table-condensed">
    <caption>
       <h4>Nos marques disponibles</h4>
@@ -21,4 +30,5 @@
         </tr>
     </tbody>
 </table>
+<?php } ?>
 </div>

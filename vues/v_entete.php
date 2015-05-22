@@ -17,10 +17,10 @@
     			<div class="col-md-8">
         			<h1>Luxurious Cars</h1>
              <?php if ($pdo->estConnecte()){
-              echo "True";
+              echo "Bonjour ".$_COOKIE['prenomUser'];
              }
              else {
-              echo "False";
+              echo "Bonjour";
              }
              ?>
         	    </div>

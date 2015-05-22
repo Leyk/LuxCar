@@ -1028,6 +1028,7 @@ INSERT INTO Etat VALUES ("IN","Informatif");
 CREATE TABLE IF NOT EXISTS Devis(
 	idDevis smallint(4) NOT NULL auto_increment,
 	idInscrit smallint(4) NOT NULL,
+	idMarque smallint(3) NOT NULL,
 	idModele smallint(3) NOT NULL,
 	idCouleur smallint(2),
 	idEtat char(2) DEFAULT "IN",
@@ -1035,6 +1036,7 @@ CREATE TABLE IF NOT EXISTS Devis(
 	prixDevis float(10,2),
 	PRIMARY KEY (idDevis),
 	CONSTRAINT fk_devis_inscrit FOREIGN KEY (idInscrit) REFERENCES Inscrit(idInscrit),
+	CONSTRAINT fk_devis_marque FOREIGN KEY (idMarque) REFERENCES Marque(idMarque),
 	CONSTRAINT fk_devis_modele FOREIGN KEY (idModele) REFERENCES Modele(idModele),
 	CONSTRAINT fk_devis_couleur FOREIGN KEY (idCouleur) REFERENCES Couleur(idCouleur),
 	CONSTRAINT fk_devis_etat FOREIGN KEY (idEtat) REFERENCES Etat(idEtat)
