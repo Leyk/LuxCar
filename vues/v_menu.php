@@ -5,7 +5,7 @@
 				<a href="index.php?uc=accueil">Accueil</a>
 			</li>
 			<li>
-				<a href="index.php?uc=catalogue&action=choisirMarque">Catalogue</a>
+				<a href="index.php?uc=catalogue&action=choisirCatalogue">Catalogue</a>
 			</li>
 			<?php if($pdo->estConnecte()){ ?>
 			<li>

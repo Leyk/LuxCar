@@ -7,8 +7,8 @@ switch ($action) {
 	case 'creerDevis':{
 		if ($pdo->estConnecte()){
 			if(isset($_REQUEST['mar']) and isset($_REQUEST['mod'])){
-				$crea=$devis = $pdo->creerDevis($_REQUEST['mar'], $_REQUEST['mod']);
-				if ($crea){
+				$crea = $pdo->creerDevis($_REQUEST['mar'], $_REQUEST['mod']);
+				if ($crea !=0){
 					ajouterInfo("Félicitation, votre devis a bien été créé !","devis");
 				}
 				else {
@@ -57,6 +57,7 @@ switch ($action) {
 					$iduser = $user['idInscrit'];
 					$iddev = $_REQUEST['id'];
 					$leDevis = $pdo->getDetailsDevis($iddev,$iduser);
+					$lesOptions = $pdo->getLesOptionsChoisies($iddev);
 					if(!is_array($leDevis)){
 						ajouterErreur("Erreur de chargement du devis, veuillez vérifier sa référence","devis");
 					}
@@ -73,7 +74,39 @@ switch ($action) {
 			ajouterErreur("Il vous faut être connecté pour consulter vos devis !","devis");
 		}
 	include("vues/v_detailsDevis.php");
+	if(isset($lesOptions)){
+		if(count($lesOptions)>0){
+			include("vues/v_option.php");
+		}
+	}
 	break;
+	}
+
+	case 'ajouterOption':{
+		if (isset($_POST['cbxoption'])){
+			$options = $_POST['cbxoption'];
+			if (isset($_REQUEST['dev'])){
+				$iddev = $_REQUEST['dev'];
+				$lesIdOptions = $pdo->ajouterOption($iddev,$options);
+				if(is_array($lesIdOptions)){
+					ajouterInfo("Félicitation, vos options ont bien été ajoutées à votre devis ".$iddev." ","devis");
+					$lesOptions = $pdo->getLesOptionsChoisies($iddev);
+					include("vues/v_option.php");
+				}
+				else {
+					include("vues/v_accueil.html");
+				}
+			}
+			else {
+				ajouterErreur("Il vous faut choisir un devis auquel ajouter une option !","devis");
+				include("vues/v_option.php");
+			}	
+		}
+		else {
+			include("vues/v_accueil.html");
+		}
+		
+		break;
 	}
 
 	default:{

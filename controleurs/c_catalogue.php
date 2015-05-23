@@ -5,7 +5,7 @@ if(!isset($_REQUEST['action'])){
 $action = $_REQUEST['action'];
 switch ($action) {
 	case 'choisirCatalogue';{
-		
+		include("vues/v_catalogue.php");
 		break ;
 	}
 
@@ -19,10 +19,15 @@ switch ($action) {
 	}
 
 	case 'choisirModele':{
-		$mar=$_REQUEST['mar'];
-		$lesModeles = $pdo->getLesModeles($mar);
-		if(!is_array($lesModeles)){
-			ajouterErreur("Erreur de chargement des modèles","catalogue");
+		if(isset($_REQUEST['mar'])){
+			$mar=$_REQUEST['mar'];
+			$lesModeles = $pdo->getLesModeles($mar);
+			if(!is_array($lesModeles)){
+				ajouterErreur("Erreur de chargement des modèles","catalogue");
+			}
+		}
+		else{
+			ajouterErreur("Erreur : vous devez au préalable sélectionner une marque","catalogue");
 		}
 		include("vues/v_modele.php");
 		break;

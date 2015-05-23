@@ -147,15 +147,16 @@ function estConnecte(){
 		return $ligne;
 	}
 
-// Crée un devis
+// Crée un devis et retourne son ID
 	public function creerDevis($mar, $mod){
 		$user = $this->getUserConnecte();
 		$iduser = $user['idInscrit'];
 		$lemodele = $this->getPrixMod($mod);
 		$prix = $lemodele['prixModele'];
 		$req = 'INSERT INTO devis (idInscrit, idMarque, idModele, dateDevis, prixDevis) VALUES ('.$iduser.','.$mar.','.$mod.','.date("Ymd").','.$prix.')';
-		$rs = PdoLxc::$monPdo->exec($req);
-		return $rs;
+		$prep = PdoLxc::$monPdo->prepare($req);
+		$prep->execute(array());
+		return PdoLxc::$monPdo->lastInsertId(); // pour récupérer l'ID du devis qui vient d'être créé
 	}
 
 // Récupérer les devis d'un utilisateur connecté (dont l'id est passé en paramètre)
@@ -181,4 +182,30 @@ public function getNbDevisUser($id){
 		$ligne = $rs->fetch();
 		return $ligne;
 	}	
+
+// Ajouter des options à un devis
+	public function ajouterOption($iddev, $lesOptions){
+		$mesOptions = null ;  // mesOptions deviendra un tableau seulement si au moins une ligne est insérée dans la bd. Cela permet de tester si des options ont été ajouté et si c'est effectivement le cas, de les récupérer
+		foreach ($lesOptions as $uneOption){
+			$req = 'INSERT INTO ligneoption VALUES ('.$iddev.','.$uneOption.')';
+			$rs = PdoLxc::$monPdo->exec($req);
+			if($rs){
+				if(!isset($mesOptions)){
+					$mesOptions = [];
+				}
+				array_push($mesOptions, $uneOption);
+			}
+		}
+		return $mesOptions;
+	}
+
+// Récupérer les options dont l'id est passé en paramètre
+	public function getLesOptionsChoisies($iddev){
+			$req = 'SELECT o.idOption, o.nomOption, o.descriptionOption, o.prixOption FROM ligneoption as l, options as o WHERE l.idOption = o.idOption AND idDevis='.$iddev;
+			$rs = PdoLxc::$monPdo->query($req);
+			$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+			return $ligne;
+	}
+
+	
 }

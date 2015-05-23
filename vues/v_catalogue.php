@@ -1,0 +1,2 @@
+<input type="button" name="Les Marques" value="Les Marques" onclick="self.location.href='index.php?uc=catalogue&action=choisirMarque'" class="btn btn-primary"> 
+<input type="button" name="Les Options" value="Les Options" onclick="self.location.href='index.php?uc=catalogue&action=voirOptions'" class="btn btn-primary"> 

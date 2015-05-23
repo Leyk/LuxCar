@@ -16,10 +16,12 @@ if (isset($_REQUEST['erreurs']))
   }
 }
 else{
+  if(isset($crea)){
 ?>
+<form method="post" action ="index.php?uc=devis&action=ajouterOption&dev=<?php echo $crea ?>"> <?php } ?>
 <table class="table table-bordered table-striped table-condensed">
    <caption>
-      <h4>Options compatibles</h4>
+      <h4>Options (<?php echo count($lesOptions);?>)</h4>
    </caption>
    <tbody>
         <?php
@@ -34,13 +36,16 @@ else{
           <td><?php echo $nomOption ?></td>
           <td><?php echo $descrOption ?></td>
           <td><?php echo $prixOption ?>€</td>
-          <td> <input type="button" name="Ajouter" id="Ajouter" value="Ajouter" onclick="self.location.href='index.php?uc=catalogue&action=choisirOptions&id=<?php echo $idOption ?>'" class="btn btn-primary"> 
+          <?php if (isset ($crea)){ ?>
+          <td> <input type="checkbox" name="cbxoption[]" value="<?php echo $idOption ?>"></td>
           <?php
-         }
+         } }
           ?>
         </tr>
     </tbody>
 </table>
-<button type="submit" class="btn btn-primary">Valider les Options</button>
-<?php } ?>
+<?php if (isset ($crea)){ ?>
+<input type="submit" name="ValiderLesOptions" value="Valider les Options" class="btn btn-primary"> 
+</form>
+<?php }} ?>
 </div>
