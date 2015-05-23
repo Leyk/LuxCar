@@ -14,4 +14,19 @@ function ajouterErreur($msg,$form){
 	}
 	$_REQUEST['erreurs'][] = $msg ;
 }
+
+function ajouterInfo($msg,$form){
+	if(!isset($_REQUEST['info'])){
+		$_REQUEST['info'] = array();
+		$_REQUEST['infoForm'] = $form;
+	}
+	$_REQUEST['info'][] = $msg ;
+}
+
+function dateAnglaisVersFrancais($maDate){
+   @list($annee,$mois,$jour)=explode('-',$maDate);
+   $date=$jour."/".$mois."/".$annee;
+   return $date;
+}
+
 ?>

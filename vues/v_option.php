@@ -1,5 +1,13 @@
 <div class="row">
 <?php
+if (isset($_REQUEST['info']))
+{
+  foreach($_REQUEST['info'] as $linfo)
+  {
+    echo '<h4 class="text-success">'.$linfo.'</h4>';
+  }
+}
+
 if (isset($_REQUEST['erreurs']))
 {
   foreach($_REQUEST['erreurs'] as $erreur)
@@ -32,7 +40,7 @@ else{
           ?>
         </tr>
     </tbody>
-    <button type="submit" class="btn btn-primary">Valider les Options</button>
 </table>
+<button type="submit" class="btn btn-primary">Valider les Options</button>
 <?php } ?>
 </div>

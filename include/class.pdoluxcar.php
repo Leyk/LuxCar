@@ -157,4 +157,12 @@ function estConnecte(){
 		$rs = PdoLxc::$monPdo->exec($req);
 		return $rs;
 	}
+
+// Récupérer les devis d'un utilisateur connecté (dont l'id est passé en paramètre)
+	public function getLesDevisUser($id){
+		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM devis as d, marque as ma, modele as mo, etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat';
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+		return $ligne;
+	}
 }
