@@ -28,8 +28,8 @@ else{
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixModele ?> €</td>
           <td><?php echo $descrModele ?></td>
-          <td> <input type="button" name="Voir Options" value="Voir Options" onclick="self.location.href='index.php?uc=catalogue&action=voirOptions'" class="btn btn-primary"> 
-          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=catalogue&action=creerDevis&mar=<?php echo $_REQUEST['mar'] ?>&mod=<?php echo $idModele ?>'" class="btn btn-primary"> 
+          <!--<td> <input type="button" name="Voir Options" value="Voir Options" onclick="self.location.href='index.php?uc=catalogue&action=voirOptions'" class="btn btn-primary">-->
+          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=devis&action=creerDevis&mar=<?php echo $_REQUEST['mar'] ?>&mod=<?php echo $idModele ?>'" class="btn btn-primary"> 
           <?php
          }
           ?>

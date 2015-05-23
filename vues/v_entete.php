@@ -11,7 +11,7 @@
     <div class="container">
     	<header class="row">
       		<div class="col-md-12">
-      			<img src="images/luxcar_banner.png" id="imgEntete" alt="Site LuxCar" />
+      			<img src="images/luxcar_banner.jpeg" id="imgEntete" alt="Site LuxCar" />
       		</div>
       		<div class="row">
     			<div class="col-md-8">

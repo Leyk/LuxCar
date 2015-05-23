@@ -9,7 +9,7 @@
 			</li>
 			<?php if($pdo->estConnecte()){ ?>
 			<li>
-				<a href="index.php?uc=catalogue&action=consulterDevis">Mes Devis</a>
+				<a href="index.php?uc=devis&action=consulterDevis">Mes Devis</a>
 			</li>
 			<?php } 
 			$user = $pdo->getUserConnecte();

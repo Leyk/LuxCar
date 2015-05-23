@@ -28,6 +28,10 @@ switch ($uc) {
 		include("controleurs/c_inscription.php");
 		break;
 	}
+	case 'devis':{
+		include("controleurs/c_devis.php");
+		break;
+	}
 	default:{
 		include("vues/v_accueil.html");
 		break;

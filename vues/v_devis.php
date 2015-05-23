@@ -12,9 +12,11 @@ else{
   <table class="table table-bordered table-striped table-condensed">
     <caption>
       <h4>Vos devis</h4>
+      <?php if ($nbDevis['nbdevis'] > 0){ ?>
+      <h5>Vous avez <?php echo $nbDevis['nbdevis'] ?> devis.</h5>
     </caption>
     <tbody>
-    <th> Numéro Devis</th>
+    <th> Référence</th>
     <th> Date</th>
     <th> Marque</th>
     <th> Modèle</th>
@@ -38,11 +40,14 @@ else{
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixDevis ?>€</td>
           <td><?php echo $etatDevis ?></td>
+          <td> <input type="button" name="Aperçu" id="Aperçu" value="Aperçu" onclick="self.location.href='index.php?uc=devis&action=detailsDevis&id=<?php echo $idDevis ?>'" class="btn btn-primary"> 
           <?php
          }
           ?>
         </tr>
     </tbody>
   </table>
-<?php } ?>
+<?php } else { ?>
+<h5>Vous n'avez actuellement aucun devis</h5>
+<?php }} ?>
 </div>

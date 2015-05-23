@@ -850,9 +850,9 @@ CREATE TABLE IF NOT EXISTS Marque(
 -- Insertion table 'Marque'
 
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Aston Martin","images/logo/tn_logo_astonmartin.jpeg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Audi","images/logo/tn_logo_audi.jpg");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Audi","images/logo/tn_logo_audi.jpeg");
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("BMW","images/logo/tn_logo_bmw.jpeg");
-INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Bugatti","images/logo/tn_logo_bugatti.png");
+INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Bugatti","images/logo/tn_logo_bugatti.jpeg");
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Ferrari","images/logo/tn_logo_ferrari.jpeg");
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Jaguar","images/logo/tn_logo_jaguar.jpeg");
 INSERT INTO Marque (nomMarque, logoMarque) VALUES ("Lamborghini","images/logo/tn_logo_lamborghini.jpeg");
@@ -944,29 +944,29 @@ INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VA
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (4,"Veyron","images/modele/4_1.jpeg",2350000.99,1);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (4,"Grand sport","images/modele/4_2.jpeg",2500000,3);
 
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"LaFerrari","images/modele/5_1.jpg",1200000.90,2);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"F12 Berlinetta","images/modele/5_2.jpg",290000.50,5);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"Spider","images/modele/5_3.jpg",285000.30,4);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"FF","images/modele/5_4.jpg",290000,8);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"LaFerrari","images/modele/5_1.jpeg",1200000.90,2);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"F12 Berlinetta","images/modele/5_2.jpeg",290000.50,5);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"Spider","images/modele/5_3.jpeg",285000.30,4);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (5,"FF","images/modele/5_4.jpeg",290000,8);
 
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"XE Prestige","images/modele/6_1.png",41210.99,9);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"XJ","images/modele/6_2.png",82400,7);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (6,"F-Type R Coupé","images/modele/6_3.png",107660.90,10);
 
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Veneno","images/modele/7_1.jpg",3300000.90,3);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Aventador","images/modele/7_2.jpg",392000.99,6);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Huracan","images/modele/7_3.jpg",260000,4);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Gallardo","images/modele/7_4.jpg",220000.99,7);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Veneno","images/modele/7_1.jpeg",3300000.90,3);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Aventador","images/modele/7_2.jpeg",392000.99,6);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Huracan","images/modele/7_3.jpeg",260000,4);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (7,"Gallardo","images/modele/7_4.jpeg",220000.99,7);
 
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"CT 200h","images/modele/8_1.png",27990.50,17);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"IS 250","images/modele/8_2.png",43390,12);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"RC F","images/modele/8_3.png",79790.90,9);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (8,"LS 600h L","images/modele/8_4.png",150500,5);
 
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Ghibli","images/modele/9_1.jpg",67250,11);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Quattroporte GTS","images/modele/9_2.jpg",150700.99,10);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranTurismo MC Stradale","images/modele/9_3.jpg",154950.99,11);
-INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranCabrio MC","images/modele/9_4.jpg",153800,13);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Ghibli","images/modele/9_1.jpeg",67250,11);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"Quattroporte GTS","images/modele/9_2.jpeg",150700.99,10);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranTurismo MC Stradale","images/modele/9_3.jpeg",154950.99,11);
+INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (9,"GranCabrio MC","images/modele/9_4.jpeg",153800,13);
 
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"Classe E Cabriolet","images/modele/10_1.png",95000,13);
 INSERT INTO Modele (idMarque, nomModele, imgModele, prixModele, nbDisponible) VALUES (10,"SLK","images/modele/10_2.png",88000.90,8);
@@ -1013,7 +1013,7 @@ CREATE TABLE IF NOT EXISTS Devis(
 	CONSTRAINT fk_devis_marque FOREIGN KEY (idMarque) REFERENCES Marque(idMarque),
 	CONSTRAINT fk_devis_modele FOREIGN KEY (idModele) REFERENCES Modele(idModele),
 	CONSTRAINT fk_devis_etat FOREIGN KEY (idEtat) REFERENCES Etat(idEtat)
-	) ENGINE=InnoDB CHARACTER SET latin1;
+	) ENGINE=InnoDB CHARACTER SET latin1 auto_increment=7777;
 
 -- Structure de la table LigneOption (qui contient les options que l'utilisateur a choisies pour son devis)
 

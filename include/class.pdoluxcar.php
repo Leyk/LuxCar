@@ -160,9 +160,25 @@ function estConnecte(){
 
 // Récupérer les devis d'un utilisateur connecté (dont l'id est passé en paramètre)
 	public function getLesDevisUser($id){
-		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM devis as d, marque as ma, modele as mo, etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat';
+		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM devis as d, marque as ma, modele as mo, etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat AND d.idInscrit ='.$id;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
 	}
+
+// Récupérer le nombre de devis d'un utilisateur
+public function getNbDevisUser($id){
+		$req = 'SELECT count(idDevis) AS nbdevis FROM devis WHERE idInscrit ='.$id;
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}	
+
+// Récupérer le devis dont l'id est passé en paramètre, avec toutes les informations le concernant
+	public function getDetailsDevis($iddev,$iduser){
+		$req = 'SELECT d.idDevis, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM devis as d, inscrit as i, marque as ma, modele as mo, etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev.' AND d.idInscrit ='.$iduser;
+		$rs = PdoLxc::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}	
 }
