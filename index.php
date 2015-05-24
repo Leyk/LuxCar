@@ -32,6 +32,10 @@ switch ($uc) {
 		include("controleurs/c_devis.php");
 		break;
 	}
+	case 'administration':{
+		include("controleurs/c_administration.php");
+		break;
+	}
 	default:{
 		include("vues/v_accueil.html");
 		break;

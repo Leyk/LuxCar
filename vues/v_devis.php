@@ -1,5 +1,13 @@
 <div class="row">
 <?php
+if (isset($_REQUEST['info']))
+{
+  foreach($_REQUEST['info'] as $linfo)
+  {
+    echo '<h4 class="text-success">'.$linfo.'</h4>';
+  }
+}
+
 if (isset($_REQUEST['erreurs']))
 {
   foreach($_REQUEST['erreurs'] as $erreur)
@@ -11,12 +19,18 @@ else{
 ?>
   <table class="table table-bordered table-striped table-condensed">
     <caption>
+      <?php if (!$pdo->estAdmin()) { ?>
       <h4>Vos devis</h4>
-      <?php if ($nbDevis['nbdevis'] > 0){ ?>
-      <h5>Vous avez <?php echo $nbDevis['nbdevis'] ?> devis.</h5>
+      <?php } else { ?>
+      <h4>Liste des devis clients</h4>
+      <?php } if ($nbDevis > 0){ ?>
+      <h5><?php if (!$pdo->estAdmin()) {
+        echo "Vous avez ";
+        } echo $nbDevis?> devis.</h5>
     </caption>
     <tbody>
     <th> Référence</th>
+    <?php if ($pdo->estAdmin() and ($_REQUEST['uc']=="administration")) {?><th>Id Inscrit</th><?php } ?>
     <th> Date</th>
     <th> Marque</th>
     <th> Modèle</th>
@@ -26,6 +40,9 @@ else{
         foreach($lesDevis as $unDevis)
         {
           $idDevis = $unDevis['idDevis'];
+          if ($pdo->estAdmin() and ($_REQUEST['uc']=="administration")) {
+            $idInscrit = $unDevis['idInscrit'];
+          }
           $nomMarque = $unDevis['nomMarque'];
           $nomModele = $unDevis['nomModele'];
           $prixDevis = $unDevis['prixDevis'];
@@ -35,6 +52,7 @@ else{
         ?>
         <tr>
           <td><?php echo $idDevis ?></td>
+          <?php if ($pdo->estAdmin() and ($_REQUEST['uc']=="administration")) {?><td><?php echo $idInscrit ?></td><?php } ?>
           <td><?php echo $dateFr ?></td>
           <td><?php echo $nomMarque ?></td>
           <td><?php echo $nomModele ?></td>

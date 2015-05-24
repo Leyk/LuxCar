@@ -906,6 +906,10 @@ INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Camera d
 INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Peinture anti-rayures","Grâce à cette superbe peinture anti-rayures, vous pourrez vous permettre de rentrer dans la clio d'à côté lors de vos créneaux",15292.90);
 INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Siège passager éjectable","Si la compagnie de votre co-pilote devient un supplice, vous ne regretterez pas cette investissement", 26550.99);
 INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Système Plaque Immatriculation Interchangeable","Grâce à votre deuxième plaque d'immatriculation cachée, fini les problèmes de radars", 18620.00);
+INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("Boîte automatique","Grâce à la boîte automatique vous serez en mesure de rouler les mains dans les poches ! ou presque...", 10120.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Pack racing en fibre carbone", 10080.00);
+INSERT INTO Options (nomOption, prixOption) VALUES ("Sièges électriques", 4914.00);
+
 
 -- Structure de la table 'Modèle'
 
@@ -915,7 +919,6 @@ CREATE TABLE IF NOT EXISTS Modele(
 	nomModele varchar(30) NOT NULL,
 	imgModele varchar(50),
 	prixModele float(9,2) NOT NULL DEFAULT 0,
-	descriptionModele varchar(100) DEFAULT " ",
 	nbDisponible int,
 	PRIMARY KEY (idModele),
 	CONSTRAINT fk_modele_marque FOREIGN KEY (idMarque) REFERENCES Marque(idMarque)

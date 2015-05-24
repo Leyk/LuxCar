@@ -47,5 +47,6 @@ else{
 <?php if (isset ($crea)){ ?>
 <input type="submit" name="ValiderLesOptions" value="Valider les Options" class="btn btn-primary"> 
 </form>
+</br><input type="button" name="Annuler" value="Annuler" <?php if (isset($_REQUEST['dt'])){?> onclick="self.location.href='index.php?uc=administration&action=detailsDevis&id=<?php echo $crea ?>'"<?php } else{?> onclick="self.location.href='index.php'"<?php }?> class="btn btn-primary"> 
 <?php }} ?>
 </div>

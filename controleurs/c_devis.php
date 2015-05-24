@@ -36,7 +36,7 @@ switch ($action) {
 			if(is_array($user)){
 				$id = $user['idInscrit'];
 				$lesDevis = $pdo->getLesDevisUser($id);
-				$nbDevis = $pdo->getNbDevisUser($id);
+				$nbDevis = count($lesDevis);
 			}
 			else{
 				ajouterErreur("Erreur de récupération des données utilisateur","devis");
@@ -54,10 +54,14 @@ switch ($action) {
 			if (isset($_REQUEST['id'])){
 				$user = $pdo->getUserConnecte();
 				if(is_array($user)){
-					$iduser = $user['idInscrit'];
 					$iddev = $_REQUEST['id'];
-					$leDevis = $pdo->getDetailsDevis($iddev,$iduser);
 					$lesOptions = $pdo->getLesOptionsChoisies($iddev);
+					if($pdo->estAdmin()){
+						$leDevis = $pdo->getLeDevis($iddev);
+					} else {
+						$iduser = $user['idInscrit'];
+						$leDevis = $pdo->getDetailsDevis($iddev,$iduser);						
+					}
 					if(!is_array($leDevis)){
 						ajouterErreur("Erreur de chargement du devis, veuillez vérifier sa référence","devis");
 					}
@@ -102,13 +106,21 @@ switch ($action) {
 				include("vues/v_option.php");
 			}	
 		}
-		else {
+		else if(isset($_REQUEST['dt'])){
+			$crea = $_REQUEST['id'];
+			$lesOptions = $pdo->getLesOptionsDispo($crea);
+			if (is_array($lesOptions)){
+				include("vues/v_option.php");
+			}
+			else {
+				ajouterErreur("Vous ne pouvez plus rajouter d'options, vous avez déjà sélectionné toutes les options disponibles","devis");
+			}
+		}
+		else{
 			include("vues/v_accueil.html");
 		}
-		
 		break;
 	}
-
 	default:{
 		echo '<h4 class="text-danger"> Erreur </h4>'; ;
 		break;

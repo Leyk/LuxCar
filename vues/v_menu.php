@@ -14,8 +14,7 @@
 			<?php } 
 			$user = $pdo->getUserConnecte();
 			if(is_array($user)){
-				$categ = $user['idCategorie'];
-				if ($categ == "AD"){ ?>
+				if ($pdo->estAdmin()){ ?>
 			<li>
 				<a href="index.php?uc=administration&action=demanderAdministration">Administration</a>
 			</li>
