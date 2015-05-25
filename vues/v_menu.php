@@ -39,7 +39,9 @@
             <button type="submit" class="btn btn-success">Connexion</button>
           </form>
           <?php } else { ?>
-          	<li><input type="button" name="Deconnexion" value="Deconnexion" onclick="self.location.href='index.php?uc=connexion&action=deconnexion'" class="btn btn-success"></li>
+          <div class="row">
+          <div class="col-md-2 col-md-offset-5"><input type="button" name="Deconnexion" value="Deconnexion" onclick="self.location.href='index.php?uc=connexion&action=deconnexion'" class="btn btn-primary"></div>
+          </div>
           <?php } ?>
         </div><!--/.nav-collapse -->
       </div>
