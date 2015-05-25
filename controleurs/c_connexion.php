@@ -20,8 +20,8 @@ switch ($action) {
 			$id = $utilisateur['idInscrit'];
 			$co = $pdo->connecter($id);
 			if ($co) {
-				echo "Connexion effectuée, vous allez être redirigé dans 3 secondes ";
-				header('Refresh : 3; URL=index.php?uc=accueil');
+				echo "Connexion effectuée";
+				header('Refresh : 1; URL=index.php?uc=accueil');
 			}
 		}
 		break;
