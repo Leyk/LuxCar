@@ -5,7 +5,7 @@ include_once ("fonctions.php");
  */
 
 class PdoLxc{
-	private static $serveur='mysql:host=//my-luxcar.rhcloud.com:3306';
+	private static $serveur='mysql:host=54.87.115.13:3306';
 	private static $bd='dbname=my';
 	private static $user='adminTgvMAiP';
 	private static $mdp='H_kFxPUfR3Rl';
