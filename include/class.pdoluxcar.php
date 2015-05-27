@@ -19,6 +19,7 @@ class PdoLxc{
 	private function __construct(){
 		try{
 			PdoLxc::$monPdo = new PDO(PdoLxc::$serveur.';'.PdoLxc::$bd, PdoLxc::$user, PdoLxc::$mdp);
+			PdoLxc::$monPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 			PdoLxc::$monPdo->query("SET CHARACTER SET utf8");
 		}
 		catch (PDOException $e){
