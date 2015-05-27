@@ -28,21 +28,20 @@
             </li>
             <?php }} ?>
           </ul>
-          <?php if(!$pdo->estConnecte()){ ?>
           <form class="navbar-form navbar-right" method="POST" action="index.php?uc=connexion&action=valideConnexion">
+          <?php if(!$pdo->estConnecte()){ ?>
             <div class="form-group">
               <input type="text" id="login" name="login" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" id="mdp" name="mdp" placeholder="Password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success">Connexion</button>
+            <button type="submit" class="btn btn-primary">Connexion</button> <?php } else { ?>
+            <input type="button" name="Deconnexon" value="Deconnexion" onclick="self.location.href='index.php?uc=connexion&action=deconnexion'" class="btn btn-primary">
+            <?php } ?>
           </form>
-          <?php } else { ?>
-          <div class="row">
-          <div class="col-md-2 col-md-offset-5"><input type="button" name="Deconnexion" value="Deconnexion" onclick="self.location.href='index.php?uc=connexion&action=deconnexion'" class="btn btn-primary"></div>
-          </div>
-          <?php } ?>
+
+          
         </div><!--/.nav-collapse -->
       </div>
     </nav>
