@@ -3,6 +3,8 @@ include_once ("fonctions.php");
 /**
  * Classe d'accès aux données
  */
+
+// Affichage des erreurs
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors',1);
 ini_set('html_errors', 1);
@@ -118,7 +120,7 @@ function estConnecte(){
 
 // Récupère les modèles de la marque passée en paramètre
 	public function getLesModeles($id_marque){
-		$req = 'SELECT idModele, nomModele, imgModele, prixModele, FROM Modele WHERE idMarque ='.$id_marque ;
+		$req = 'SELECT idModele, nomModele, imgModele, prixModele FROM Modele WHERE idMarque ='.$id_marque ;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
