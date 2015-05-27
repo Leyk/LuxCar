@@ -10,20 +10,17 @@ ini_set('display_errors',1);
 ini_set('html_errors', 1);
 
 class PdoLxc{
-<<<<<<< HEAD
 	private static $serveur='mysql:host=127.6.16.2:3306';
 	private static $bd='dbname=my';
 	private static $user='adminTgvMAiP';
 	private static $mdp='H_kFxPUfR3Rl';
 
-=======
-	private static $serveur='mysql:host=127.0.0.1';
-	private static $bd='dbname=LuxCar';
-	private static $user='root';
-	private static $mdp='';
->>>>>>> 8d1019b04ab2a539bb3045dd03e5f328806f38e7
-	private static $monPdo;
-	private static $monPdoLxc=null;
+	//private static $serveur='mysql:host=127.0.0.1';
+	//private static $bd='dbname=LuxCar';
+	//private static $user='root';
+	//private static $mdp='';
+	//private static $monPdo;
+	//private static $monPdoLxc=null;
 
 // Crée l'instance de PDO qui sera sollicitée pour toutes les méthodes de la classe */
 	private function __construct(){
