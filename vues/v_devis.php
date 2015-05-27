@@ -19,12 +19,12 @@ else{
 ?>
   <table class="table table-bordered table-striped table-condensed">
     <caption>
-      <?php if ($pdo->estAdmin() and $_REQUEST['uc']== "administration") { ?>
-      <h4>Liste des devis clients</h4>
+      <?php if (!$pdo->estAdmin()) { ?>
+      <h4>Vos devis</h4>
       <?php } else { ?>
-      <h4> Vos devis </h4>
+      <h4>Liste des devis clients</h4>
       <?php } if ($nbDevis > 0){ ?>
-      <h5><?php if ($_REQUEST['uc']== "devis") {
+      <h5><?php if (!$pdo->estAdmin()) {
         echo "Vous avez ";
         } echo $nbDevis?> devis.</h5>
     </caption>

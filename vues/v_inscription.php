@@ -32,7 +32,7 @@ if (isset($_REQUEST['erreurs']))
 					<label for="nom">Adresse mail</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="mail" type="email" name="mail" size="30" maxlength="45" placeholder="Adresse mail" required>
+							<input class="form-control" id="mail" type="text" name="mail" size="30" maxlength="45" placeholder="Adresse mail" required>
 						</div>
 					</div>
 				</div>

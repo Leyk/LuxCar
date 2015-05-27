@@ -20,6 +20,7 @@ switch ($action) {
 			$id = $utilisateur['idInscrit'];
 			$co = $pdo->connecter($id);
 			if ($co) {
+				echo "Connexion effectuée";
 				header('Refresh : 0; URL=index.php?uc=accueil');
 			}
 		}
@@ -30,6 +31,7 @@ switch ($action) {
 			$id = $_COOKIE['idUser'];
 			$deco = $pdo->deconnecter($id);
 			if ($deco){
+				echo "Vous avez bien été déconnecté";
 			header('Refresh : 0; URL=index.php?uc=accueil');
 			}
 		}

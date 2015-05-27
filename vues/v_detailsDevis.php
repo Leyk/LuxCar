@@ -26,7 +26,6 @@ else{
     <th> Etat Devis</th>
         <?php
         $idDevis = $leDevis['idDevis'];
-        $idInscrit = $leDevis['idInscrit'];
         $nomInscr = $leDevis['nomInscrit'];
         $prenomInscr = $leDevis['prenomInscrit'];
         $logoMar = $leDevis['logoMarque'];
@@ -53,7 +52,7 @@ else{
     <div class="col-lg-offset-2 col-xs-6 col-sm-3 col-md-2"><img src="<?php echo $logoMar ?>" alt="Image marque <?php echo $nomMarque;?>"></div>
     <div class="col-lg-offset-2 col-xs-6 col-sm-3 col-md-2"><img src="<?php echo $imgMod ?>" alt="Image modele <?php echo $nomModele;?>" ></div>
   </section>
-  <?php if ($idInscrit==$_COOKIE['idUser'] and $leDevis['idEtat'] != "VA") { ?>
+  <?php if (!$pdo->estAdmin() and $leDevis['idEtat'] != "VA") { ?>
   </br><input type="button" name="Ajouter Options" value="Ajouter Options" onclick="self.location.href='index.php?uc=devis&action=ajouterOption&id=<?php echo $idDevis ?>&dt=tr'" class="btn btn-primary"> 
   <?php } else {
    if ($leDevis['idEtat'] == "AT") { ?>

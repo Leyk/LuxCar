@@ -4,6 +4,11 @@ if(!isset($_REQUEST['action'])){
 }
 $action = $_REQUEST['action'];
 switch ($action) {
+	case 'choisirCatalogue';{
+		include("vues/v_catalogue.php");
+		break ;
+	}
+
 	case 'choisirMarque':{
 		$lesMarques = $pdo->getLesMarques();
 		if(!is_array($lesMarques)){
