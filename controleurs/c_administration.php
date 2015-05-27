@@ -48,15 +48,12 @@ if ($pdo->estConnecte()){
 				$rs = $pdo->creerOption($_POST['nomOption'], $_POST['descOption'], $_POST['prixOption']);
 				if($rs){
 					ajouterInfo("Félicitation, l'option ".$_POST['nomOption']." a bien été créée !","admin");
+					header('Refresh : 1; URL=index.php?uc=accueil');
 				}
 				else{
 					ajouterErreur("Erreur : un problème est survenu lors de la création de votre option. Vérifiez que les champs sont valides","admin");
+					include("vues/v_fromOption.php");
 				}
-				include("vues/v_administration.php");
-				break;
-			}
-			case 'demanderAdministration':{
-				include("vues/v_administration.php");
 				break;
 			}
 		}

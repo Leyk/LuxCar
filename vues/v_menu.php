@@ -22,8 +22,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administration<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="index.php?uc=administration&action=consulterDevis">Les Devis</a></li>
-                <li><a href="index.php?uc=administration&action=creerOption">Les Options</a></li>
+                <li><a href="index.php?uc=administration&action=consulterDevis">Les Devis Clients</a></li>
+                <li><a href="index.php?uc=administration&action=creerOption">Créer Option</a></li>
               </ul>
             </li>
             <?php }} ?>
