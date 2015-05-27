@@ -19,8 +19,8 @@ class PdoLxc{
 	//private static $bd='dbname=LuxCar';
 	//private static $user='root';
 	//private static $mdp='';
-	//private static $monPdo;
-	//private static $monPdoLxc=null;
+	private static $monPdo;
+	private static $monPdoLxc=null;
 
 // Crée l'instance de PDO qui sera sollicitée pour toutes les méthodes de la classe */
 	private function __construct(){
