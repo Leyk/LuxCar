@@ -5,10 +5,7 @@ include_once ("fonctions.php");
  */
 
 class PdoLxc{
-	private static $serveur='mysql:host=127.0.0.1';
-	private static $bd='dbname=LuxCar';
-	private static $user='root';
-	private static $mdp='';
+	
 	private static $monPdo;
 	private static $monPdoLxc=null;
 

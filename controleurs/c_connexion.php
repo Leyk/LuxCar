@@ -27,12 +27,16 @@ switch ($action) {
 		break;
 	}
 	case 'deconnexion':{
-		$id = $_COOKIE['idUser'];
-		$deco = $pdo->deconnecter($id);
-		if ($deco){
-			echo "Vous avez bien été déconnecté";
-		header('Refresh : 0; URL=http://localhost/luxcar/index.php?uc=connexion&action=demandeConnexion');
+		if (isset($_COOKIE['idUser'])){
+			$id = $_COOKIE['idUser'];
+			$deco = $pdo->deconnecter($id);
+			if ($deco){
+				echo "Vous avez bien été déconnecté";
+			header('Refresh : 0; URL=index.php?uc=accueil');
+			}
 		}
+		break;
+		include("vues/v_accueil.html");
 	}
 	default:{
 		include ("vues/v_connexion.php");
