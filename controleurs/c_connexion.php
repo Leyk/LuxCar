@@ -20,19 +20,23 @@ switch ($action) {
 			$id = $utilisateur['idInscrit'];
 			$co = $pdo->connecter($id);
 			if ($co) {
-				echo "Connexion effectuée, vous allez être redirigé dans 3 secondes ";
-				header('Refresh : 3; URL=index.php?uc=accueil');
+				echo "Connexion effectuée";
+				header('Refresh : 1; URL=index.php?uc=accueil');
 			}
 		}
 		break;
 	}
 	case 'deconnexion':{
-		$id = $_COOKIE['idUser'];
-		$deco = $pdo->deconnecter($id);
-		if ($deco){
-			echo "Vous avez bien été déconnecté";
-		header('Refresh : 0; URL=http://localhost/luxcar/index.php?uc=connexion&action=demandeConnexion');
+		if (isset($_COOKIE['idUser'])){
+			$id = $_COOKIE['idUser'];
+			$deco = $pdo->deconnecter($id);
+			if ($deco){
+				echo "Vous avez bien été déconnecté";
+			header('Refresh : 0; URL=index.php?uc=accueil');
+			}
 		}
+		break;
+		include("vues/v_accueil.html");
 	}
 	default:{
 		include ("vues/v_connexion.php");
