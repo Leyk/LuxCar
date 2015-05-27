@@ -118,7 +118,7 @@ function estConnecte(){
 
 // Récupère les modèles de la marque passée en paramètre
 	public function getLesModeles($id_marque){
-		$req = 'SELECT idModele, nomModele, imgModele, prixModele, descriptionModele FROM Modele WHERE idMarque ='.$id_marque ;
+		$req = 'SELECT idModele, nomModele, imgModele, prixModele, FROM Modele WHERE idMarque ='.$id_marque ;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
