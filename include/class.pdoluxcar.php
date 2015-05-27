@@ -14,6 +14,7 @@ class PdoLxc{
 	private static $bd='dbname=my';
 	private static $user='adminTgvMAiP';
 	private static $mdp='H_kFxPUfR3Rl';
+
 	private static $monPdo;
 	private static $monPdoLxc=null;
 
