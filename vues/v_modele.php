@@ -21,13 +21,11 @@ else{
           $nomModele = $unModele['nomModele'];
           $imgModele = $unModele['imgModele'];
           $prixModele = $unModele['prixModele'];
-          $descrModele = $unModele['descriptionModele'];
         ?>
         <tr>
           <td><img src="<?php echo $imgModele ?>" alt="Image modele <?php echo $nomModele ?>"></td>
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixModele ?> €</td>
-          <td><?php echo $descrModele ?></td>
           <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=devis&action=creerDevis&mar=<?php echo $_REQUEST['mar'] ?>&mod=<?php echo $idModele ?>'" class="btn btn-primary"> 
           <?php
          }
