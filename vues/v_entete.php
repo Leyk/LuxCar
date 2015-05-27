@@ -27,7 +27,13 @@
              else {
               echo "Bonjour";
              }
-             ?>
+             
+             if (isset($_COOKIE['idUser'])){
+              echo "cool !";
+             } else {
+              echo "pas cool !";
+             }
+            ?>
         	    </div>
         	</div>
       	</header>
