@@ -167,7 +167,7 @@ function estConnecte(){
 
 // Récupérer les devis d'un utilisateur connecté (dont l'id est passé en paramètre)
 	public function getLesDevisUser($id){
-		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM Devis as d, Marque as ma, Modele as mo, Etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat AND d.idInscrit ='.$id;
+		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM Devis as d, Marque as ma, Modele as mo, Etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat AND d.idInscrit ='.$id.' ORDER BY d.idDevis';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
@@ -183,7 +183,7 @@ function estConnecte(){
 
 // Récupérer le devis dont l'id est passé en paramètre. Cette fonction est a utiliser par les admin pour pouvoir récupérer n'importe quel devis aisément uniquement avec l'id du devis
 	public function getLeDevis($iddev){
-		$req = 'SELECT d.idDevis, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev;
+		$req = 'SELECT d.idDevis, i.idInscrit, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
@@ -207,7 +207,7 @@ function estConnecte(){
 
 // Récupérer les options dont l'id est passé en paramètre
 	public function getLesOptionsChoisies($iddev){
-			$req = 'SELECT o.idOption, o.nomOption, o.descriptionOption, o.prixOption FROM LigneOption as l, Options as o WHERE l.idOption = o.idOption AND idDevis='.$iddev;
+			$req = 'SELECT o.idOption, o.nomOption, o.descriptionOption, o.prixOption FROM LigneOption as l, Options as o WHERE l.idOption = o.idOption AND idDevis='.$iddev.' ORDER BY nomOption;
 			$rs = PdoLxc::$monPdo->query($req);
 			$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 			return $ligne;
@@ -215,7 +215,7 @@ function estConnecte(){
 
 // Récupérer les options que ne possède pas le devis dont l'id est passé en paramètre
 	public function getLesOptionsDispo($iddev){
-		$req = 'SELECT * FROM Options WHERE idOption NOT IN (SELECT o.idOption FROM Options as o, LigneOption as l WHERE o.idOption=l.idOption AND l.idDevis = '.$iddev.')';
+		$req = 'SELECT * FROM Options WHERE idOption NOT IN (SELECT o.idOption FROM Options as o, LigneOption as l WHERE o.idOption=l.idOption AND l.idDevis = '.$iddev.') ORDER BY nomOption';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
