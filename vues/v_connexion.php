@@ -9,7 +9,7 @@ if (isset($_REQUEST['erreurs']))
 	}
 }
 ?>
-		<form class="form-vertical" method="POST" action="index.php?uc=connexion&action=valideConnexion">
+		<form class="form-vertical" method="POST" action="index.php?uc=connexion&amp;action=valideConnexion">
 			<fieldset>
 				<legend> Veuillez saisir vos identifiants : </legend>
 				<div class="form-group">

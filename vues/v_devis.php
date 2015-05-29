@@ -58,7 +58,7 @@ else{
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixDevis ?>€</td>
           <td><?php echo $etatDevis ?></td>
-          <td> <input type="button" name="Aperçu" id="Aperçu" value="Aperçu" onclick="self.location.href='index.php?uc=devis&action=detailsDevis&id=<?php echo $idDevis ?>'" class="btn btn-primary"> 
+          <td> <input type="button" name="Aperçu" id="Aperçu" value="Aperçu" onclick="self.location.href='index.php?uc=devis&amp;action=detailsDevis&amp;id=<?php echo $idDevis ?>'" class="btn btn-primary"> 
           <?php
          }
           ?>

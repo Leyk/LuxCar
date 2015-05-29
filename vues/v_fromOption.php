@@ -9,7 +9,7 @@ if (isset($_REQUEST['erreurs']))
 	}
 }
 ?>
-		<form class="form-vertical" method="POST" action="index.php?uc=administration&action=valideCreationOption">
+		<form class="form-vertical" method="POST" action="index.php?uc=administration&amp;action=valideCreationOption">
 			<fieldset>
 				<legend> Définition de l'option à créer : </legend>
 				<div class="form-group">
