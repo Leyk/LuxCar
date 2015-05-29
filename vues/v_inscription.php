@@ -9,7 +9,7 @@ if (isset($_REQUEST['erreurs']))
 	}
 }
 ?>
-		<form class="form-vertical" method="POST" action="index.php?uc=inscription&action=valideInscription">
+		<form class="form-vertical" method="POST" action="index.php?uc=inscription&amp;action=valideInscription">
 			<fieldset>
 				<legend> Formulaire d'inscription : </legend>
 				<div class="form-group">

@@ -53,9 +53,9 @@ else{
     <div class="col-lg-offset-2 col-xs-6 col-sm-3 col-md-2"><img src="<?php echo $imgMod ?>" alt="Image modele <?php echo $nomModele;?>" ></div>
   </section>
   <?php if (!$pdo->estAdmin() and $leDevis['idEtat'] != "VA") { ?>
-  </br><input type="button" name="Ajouter Options" value="Ajouter Options" onclick="self.location.href='index.php?uc=devis&action=ajouterOption&id=<?php echo $idDevis ?>&dt=tr'" class="btn btn-primary"> 
+  </br><input type="button" name="Ajouter Options" value="Ajouter Options" onclick="self.location.href='index.php?uc=devis&amp;action=ajouterOption&amp;id=<?php echo $idDevis ?>&amp;dt=tr'" class="btn btn-primary"> 
   <?php } else {
    if ($leDevis['idEtat'] == "AT") { ?>
-  </br><input type="button" name="Valider" value="Valider le Devis" onclick="self.location.href='index.php?uc=administration&action=validerDevis&id=<?php echo $idDevis ?>&dt=tr'" class="btn btn-primary"> 
+  </br><input type="button" name="Valider" value="Valider le Devis" onclick="self.location.href='index.php?uc=administration&amp;action=validerDevis&amp;id=<?php echo $idDevis ?>&amp;dt=tr'" class="btn btn-primary"> 
   <?php }}} ?>
 </div>

@@ -22,7 +22,7 @@ else{
           $logoMarque = $uneMarque['logoMarque'];
         ?>
         <tr>
-          <td><a href="index.php?uc=catalogue&action=choisirModele&mar=<?php echo $idMarque ?>"><img src="<?php echo $logoMarque ?>" alt="Logo <?php echo $nomMarque ?>"></a></td>
+          <td><a href="index.php?uc=catalogue&amp;action=choisirModele&amp;mar=<?php echo $idMarque ?>"><img src="<?php echo $logoMarque ?>" alt="Logo <?php echo $nomMarque ?>"></a></td>
           <td><?php echo $nomMarque ?></td>
           <?php
          }

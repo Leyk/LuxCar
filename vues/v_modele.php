@@ -26,7 +26,7 @@ else{
           <td><img src="<?php echo $imgModele ?>" alt="Image modele <?php echo $nomModele ?>"></td>
           <td><?php echo $nomModele ?></td>
           <td><?php echo $prixModele ?> €</td>
-          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=devis&action=creerDevis&mar=<?php echo $_REQUEST['mar'] ?>&mod=<?php echo $idModele ?>'" class="btn btn-primary"> 
+          <td> <input type="button" name="Devis" value="Devis" onclick="self.location.href='index.php?uc=devis&amp;action=creerDevis&amp;mar=<?php echo $_REQUEST['mar'] ?>&amp;mod=<?php echo $idModele ?>'" class="btn btn-primary"> 
           <?php
          }
           ?>
