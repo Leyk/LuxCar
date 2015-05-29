@@ -14,13 +14,10 @@ class PdoLxc{
 	private static $bd='dbname=LuxCar';
 	private static $user='root';
 	private static $mdp='';
-<<<<<<< HEAD
 	//private static $serveur='mysql:host=127.6.16.2:3306';
 	//private static $bd='dbname=my';
 	//private static $user='adminTgvMAiP';
 	//private static $mdp='H_kFxPUfR3Rl';
-=======
->>>>>>> 6e3843c1180c1bf293bd4c995853a6f7ee7e603d
 	private static $monPdo;
 	private static $monPdoLxc=null;
 

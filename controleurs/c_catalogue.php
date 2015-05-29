@@ -36,9 +36,10 @@ switch ($action) {
 		include("vues/v_option.php");
 		break;
 	}
-
+/* Pour les URL non reconnues ici */
 	default:{
-		include("vues/v_marque.php");
+		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
+		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
 		break;
 	}
 }

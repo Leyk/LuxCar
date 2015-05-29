@@ -4,16 +4,6 @@ if(!isset($_REQUEST['action'])){
 }
 $action = $_REQUEST['action'];
 switch ($action) {
-/* le User souhaite se loger  */
-	case 'demandeConnexion':{
-		if (!$pdo->estConnecte()){ 
-			include ("vues/v_connexion.php"); // Accès au formulaire de connexion
-		}
-		else {
-			header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection si User déjà connecté
-		}
-		break;
-	}
 /* le User valide le formulaire de connexion */
 	case 'valideConnexion':{
 		if (!$pdo->estConnecte()){   // Vérification User pas déjà connecté
@@ -51,8 +41,10 @@ switch ($action) {
 		header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
 		break;
 	}
+/* Pour les URL non reconnues ici */
 	default:{
-		include ("vues/v_connexion.php");
+		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
+		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
 		break;
 	}
 }

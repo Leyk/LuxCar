@@ -8,8 +8,7 @@ body {
   height: 500px;
   margin-bottom: 60px;
   width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 35px 0;
 }
 
 .carousel-caption {
@@ -36,6 +35,8 @@ h4 {
 	vertical-align: center;
 }
 
-section.accueil{
-	background-color: black;
+section.accueil {
+  width: 85%;
+  margin: 0 auto;
+  max-width: 800px;
 }

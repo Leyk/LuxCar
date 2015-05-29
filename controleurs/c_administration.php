@@ -51,14 +51,20 @@ if ($pdo->estConnecte()){
 			}
 /* le User Admin valide la création de son option depuis le formulaire adéquat */
 			case 'valideCreationOption':{
-				$rs = $pdo->creerOption($_POST['nomOption'], $_POST['descOption'], $_POST['prixOption']);   // Insertion dans la base
-				if($rs){
-					ajouterInfo("Félicitation, l'option ".$_POST['nomOption']." a bien été créée !","admin");
-					header('Refresh : 1; URL=index.php?uc=accueil');  // Redirection vers l'accueil si l'insertion a bien été effectuée
+				if(isset($_POST['nomOption']) and isset($_POST['descOption']) and isset($_POST['prixOption'])){
+					$rs = $pdo->creerOption($_POST['nomOption'], $_POST['descOption'], $_POST['prixOption']);   // Insertion dans la base
+					if($rs){
+						ajouterInfo("Félicitation, l'option ".$_POST['nomOption']." a bien été créée !","admin");
+						header('Refresh : 1; URL=index.php?uc=accueil');  // Redirection vers l'accueil si l'insertion a bien été effectuée
+					}
+					else{
+						ajouterErreur("Erreur : un problème est survenu lors de la création de votre option. Vérifiez que les champs sont valides","admin"); // Erreur : option non créée dans la BD
+						include("vues/v_fromOption.php");  
+					}
 				}
-				else{
-					ajouterErreur("Erreur : un problème est survenu lors de la création de votre option. Vérifiez que les champs sont valides","admin");
-					include("vues/v_fromOption.php");   // Redirection vers le formulaire de création d'option si elle n'a pas pu être créée
+				else {
+					ajouterErreur("Erreur : Tous les attributs pour votre option ne sont pas spécifiés","admin"); // Erreur : manque d'attributs pour l'option à créer
+					include("vues/v_fromOption.php");   
 				}
 				break;
 			}
