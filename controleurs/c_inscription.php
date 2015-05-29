@@ -11,7 +11,7 @@ switch ($action) {
 	}
 /* le User valide son inscription */
 	case 'valideInscription':{        
-		if(isset($_REQUEST['nom'])) and isset($_REQUEST['prenom'])) and  isset($_REQUEST['mail'])) isset($_REQUEST['mdp']))){  // Vérification que les champs du formulaire sont remplis
+		if(isset($_REQUEST['nom']) and isset($_REQUEST['prenom']) and isset($_REQUEST['mail']) and isset($_REQUEST['mdp'])){  // Vérification que les champs du formulaire sont remplis
 			$nom = $_REQUEST['nom'];
 			$prenom = $_REQUEST['prenom'];
 			$mail = $_REQUEST['mail'];
