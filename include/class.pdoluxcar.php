@@ -9,7 +9,7 @@ class PdoLxc{
 	private static $bd='dbname=LuxCar';
 	private static $user='root';
 	private static $mdp='';
-	//private static $serveur='mysql:host=127.0.0.1';
+	//private static $serveur='mysql:host=127.6.16.2:3306';
 	//private static $bd='dbname=my';
 	//private static $user='adminTgvMAiP';
 	//private static $mdp='H_kFxPUfR3Rl';
