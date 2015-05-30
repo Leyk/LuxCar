@@ -69,15 +69,16 @@ switch ($action) {
 					$lesOptions = $pdo->getLesOptionsChoisies($iddev);   // Récupération des options choisies pour l'ID du devis sélectionné par le User
 					if($pdo->estAdmin()){
 						$leDevis = $pdo->getLeDevis($iddev);   // Si le User est Admin -> récupération des infos du devis grâce à  l'ID du devis sélectionné
-						include("vues/v_detailsDevis.php");
 					} else {
 						$iduser = $user['idInscrit'];
 						$leDevis = $pdo->getDetailsDevis($iddev,$iduser);	// Si le User n'est pas Admin, par sécurité on récupère le devis qui correspond à l'ID du devis ET l'ID du User connecyé afin qu'il ne puisse pas voir les devis de n'importe qui				
-						include("vues/v_detailsDevis.php");
 					}
 					if(!is_array($leDevis)){
 						ajouterErreur("Erreur de chargement du devis, veuillez vérifier sa référence","devis");  // Erreur s'il n'y a pas de devis
 						header('Refresh : 1; URL=index.php?uc=accueil');
+					}
+					else {
+						include("vues/v_detailsDevis.php");
 					}
 				}
 				else{
@@ -104,13 +105,13 @@ switch ($action) {
 /* le User connecté souhaite ajouter une option pour le devis sélectionné */
 	case 'ajouterOption':{
 		if (isset($_POST['cbxoption'])){
-			$options = $_POST['cbxoption'];
+			$options = $_POST['cbxoption'];    // Vérification qu'il a coché des checkbox (= choisi une/des option(s)). Chaque checkbox a l'id de l'option qu'elle concerne en tant que 'name'
 			if (isset($_REQUEST['dev'])){
 				$iddev = $_REQUEST['dev'];
-				$lesIdOptions = $pdo->ajouterOption($iddev,$options);
+				$lesIdOptions = $pdo->ajouterOption($iddev,$options);   // 'Essaye' d'ajouter les options au devis. Récupère le tableau des options qui ont été ajoutées. (Des options ne sont pas ajoutées si le devis les contient déjà)
 				if(is_array($lesIdOptions)){
 					ajouterInfo("Félicitation, vos options ont bien été ajoutées à votre devis ".$iddev." ","devis");
-					$lesOptions = $pdo->getLesOptionsChoisies($iddev);
+					$lesOptions = $pdo->getLesOptionsChoisies($iddev);    // Cas où au moins une option a été ajoutée : affichage récapitulatif du tableau d'options ajoutées
 					include("vues/v_option.php");
 				}
 				else {
@@ -118,13 +119,13 @@ switch ($action) {
 				}
 			}
 			else {
-				ajouterErreur("Il vous faut choisir un devis auquel ajouter une option !","devis");
+				ajouterErreur("Il vous faut choisir un devis auquel ajouter une option !","devis");   // Erreur si pas de devis sélectionné
 				include("vues/v_option.php");
 			}	
 		}
-		else if(isset($_REQUEST['dt'])){
-			$crea = $_REQUEST['id'];
-			$lesOptions = $pdo->getLesOptionsDispo($crea);
+		else if(isset($_REQUEST['dt'])){   // dt existe si le User était précédemment dans le détail d'un devis et qu'il a cliqué sur "ajouter option"
+			$crea = $_REQUEST['id'];       // Récupération de l'id du devis concerné
+			$lesOptions = $pdo->getLesOptionsDispo($crea);  // Récupération des options disponibles pour le devis sélectionné (= options qui ne sont pas déjà incluses dans le devis)
 			if (is_array($lesOptions)){
 				include("vues/v_option.php");
 			}
@@ -133,7 +134,41 @@ switch ($action) {
 			}
 		}
 		else{
-			include("vues/v_accueil.html");
+			header('Refresh : 0; URL=index.php?uc=accueil');  
+		}
+		break;
+	}
+/* le User souhaite supprimer le devis qu'il consulte depuis le détail du devis (v_detailsDevis) */
+	case 'supprimerDevis':{
+		if($pdo->estConnecte()){
+			if (isset($_REQUEST['id'])){
+				$user = $pdo->getUserConnecte();   // Récupération du User connecté
+				$iduser = $user['idInscrit'];
+				if(is_array($user)){
+					$iddev = $_REQUEST['id'];   // Récupération de l'id du devis à delete
+					$ok = $pdo->deleteDevis($iddev, $iduser);  // Suppression du devis
+					if ($ok){
+						ajouterInfo("Le devis ".$iddev." a été supprimé.", "devis");
+						header('Refresh : 2; URL=index.php?uc=devis&action=consulterDevis');  // Redirection vers la liste des devis si suppression effectuée
+					}
+					else {
+						ajouterErreur("Erreur : le devis".$iddev. " n'a pas pu être supprimé","devis");
+						header('Refresh : 2; URL=index.php?uc=devis&action=detailsDevis&id='.$iddev);  // Redirection vers le devis si suppression échouée
+					}
+				}
+				else {
+					ajouterErreur("Erreur de récupération des données utilisateur","devis"); // Erreur avec la connexion de l'utilisation
+					header('Refresh : 1; URL=index.php?uc=accueil');
+				}
+			}
+			else {
+				ajouterErreur("Il vous faut choisir un devis à supprimer !","devis"); // Erreur si aucun devis sélectionné
+				header('Refresh : 2; URL=index.php?uc=accueil');
+			}	
+		}
+		else {
+			ajouterErreur("Il vous faut être connecté pour supprimer un devis !","devis"); // Erreur si User pas connecté
+			header('Refresh : 2; URL=index.php?uc=accueil');
 		}
 		break;
 	}

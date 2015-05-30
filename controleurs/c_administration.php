@@ -28,6 +28,16 @@ if ($pdo->estConnecte()){
 					$req = $pdo->validerDevis($_REQUEST['id']);   // Modification de l'état du devis à : Validé
 					if ($req){
 						ajouterInfo("Le devis a bien été validé !","admin");
+						$urlPrec = $_SERVER["HTTP_REFERER"] ;  // permet de mémoriser l'url de la page précédente pour rediriger le User dessus
+						if (isset($urlPrec)){
+							header('Refresh : 2; URL='.$urlPrec);  // Redirection vers le devis venant d'être validé
+						}
+						else {
+							header('Refresh : 2; Url=index.php?uc=administration&action=consulterDevis');
+						}
+					}
+					else {
+						ajouterErreur("Erreur : vérifiez que ce devis peut bien être validé","admin"); // Erreur si echec de validation
 					}
 				}
 				else {
@@ -41,7 +51,6 @@ if ($pdo->estConnecte()){
 				else {
 					$nbDevis = count($lesDevis); // Récupération du nombre de devis
 				}
-				include("vues/v_devis.php");
 				break;
 /* le User Admin souhaite créer une option -> dirige vers un formulaire qui permettre d'insérer une option dans la base */
 			}

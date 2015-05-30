@@ -1,34 +1,40 @@
+<!-- Vue de l'ensemble des marques disponibles dans la BD 
+Affiche :
+- logo de la marque : en cliquant sur l'image, direction vers la page de sélection d'un modèle
+- nom de la marque -->
+
 <div class="row">
-<?php
-if (isset($_REQUEST['erreurs']))
-{
-  foreach($_REQUEST['erreurs'] as $erreur)
+  <?php
+  if (isset($_REQUEST['erreurs']))
   {
-    echo '<h4 class="text-danger">'.$erreur.'</h4>';
+    foreach($_REQUEST['erreurs'] as $erreur)
+    {
+      echo '<h4 class="text-danger">'.$erreur.'</h4>';
+    }
   }
-}
-else{
-?>
-<table class="table table-bordered table-striped table-condensed">
-   <caption>
+  else{
+  ?>
+  <table class="table table-bordered table-striped table-condensed">
+    <caption>
       <h4>Nos marques disponibles</h4>
-   </caption>
-   <tbody>
-        <?php
+    </caption>
+<!-- Contenu du tableau de présentation des marques -->
+    <tbody>
+      <?php
         foreach($lesMarques as $uneMarque)
         {
           $idMarque = $uneMarque['idMarque'];
           $nomMarque = $uneMarque['nomMarque'];
           $logoMarque = $uneMarque['logoMarque'];
-        ?>
-        <tr>
-          <td><a href="index.php?uc=catalogue&amp;action=choisirModele&amp;mar=<?php echo $idMarque ?>"><img src="<?php echo $logoMarque ?>" alt="Logo <?php echo $nomMarque ?>"></a></td>
-          <td><?php echo $nomMarque ?></td>
-          <?php
-         }
-          ?>
-        </tr>
+      ?>
+          <tr>   <!-- direction vers la page des modèles en fonction de la marque choisie -->
+            <td><a href="index.php?uc=catalogue&amp;action=choisirModele&amp;mar=<?php echo $idMarque ?>"><img src="<?php echo $logoMarque ?>" alt="Logo <?php echo $nomMarque ?>"></a></td>
+            <td><?php echo $nomMarque ?></td>
+            <?php
+        }
+            ?>
+          </tr>
     </tbody>
-</table>
-<?php } ?>
+  </table>
+  <?php } ?>
 </div>

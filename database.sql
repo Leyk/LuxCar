@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS Inscrit (
 	nomInscrit varchar(20) NOT NULL,
 	prenomInscrit varchar(20) NOT NULL,
 	mailInscrit varchar(50) NOT NULL,
-	pswInscrit varchar(20) NOT NULL,
-	token varchar(25),
+	pswInscrit varchar(100) NOT NULL,
+	token varchar(100),
 	PRIMARY KEY (idInscrit),
 	CONSTRAINT fk_inscrit_categorie FOREIGN KEY (idCategorie) REFERENCES Categorie(idCategorie)
 	 ) ENGINE=InnoDB CHARACTER SET latin1 auto_increment=1000;
@@ -1024,6 +1024,18 @@ CREATE TABLE IF NOT EXISTS LigneOption(
 	idDevis smallint(4) NOT NULL,
 	idOption smallint(4) NOT NULL,
 	PRIMARY KEY (idDevis, idOption),
-	CONSTRAINT fk_ligneOption_devis FOREIGN KEY (idDevis) REFERENCES Devis(idDevis),
-	CONSTRAINT fk_ligneOption_options FOREIGN KEY (idOption) REFERENCES 	Options(idOption)
+	CONSTRAINT fk_ligneOption_devis FOREIGN KEY (idDevis) REFERENCES Devis(idDevis) ON DELETE CASCADE,
+	CONSTRAINT fk_ligneOption_options FOREIGN KEY (idOption) REFERENCES 	Options(idOption) ON DELETE CASCADE
 	) ENGINE=InnoDB CHARACTER SET latin1;
+
+-- Trigger de Mise à jour du prix d'un Devis : Lorsqu'une option est ajoutée au devis : le prix est recalculé
+
+delimiter //
+CREATE TRIGGER calcul_prix_devis
+AFTER INSERT ON LigneOption FOR EACH ROW
+BEGIN
+	DECLARE prixOp float(8,2);
+	SET @prixOp = (SELECT prixOption FROM Options WHERE idOption = NEW.idOption); 
+	UPDATE Devis SET prixDevis = prixDevis + @prixOp WHERE idDevis = NEW.idDevis;
+END;//
+delimiter ;

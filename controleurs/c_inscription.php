@@ -22,10 +22,11 @@ switch ($action) {
 				include ("vues/v_inscription.php");
 			}
 			else{
-				$ok=$pdo->creerNouvelUtilisateur($nom,$prenom,$mail,$mdp);   // Création du nouveau user dans la base
-				if ($ok){
+				$id=$pdo->creerNouvelUtilisateur($nom,$prenom,$mail,$mdp);   // Création du nouveau user dans la base
+				if ($id > 0){
 					ajouterInfo("Inscription réussie","inscription");
-					header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
+					$pdo->connecter($id);   // Connexion de l'utilisateur -> envoie des cookies, attribution d'un token dans la BD
+					header('Refresh : 0; URL='.$_POST['urlPrec']);  // Redirection vers la page précédent l'inscription
 				}
 				else{
 					ajouterErreur("Echec de l'inscription","inscription");  // Problème au niveau de la création du user
