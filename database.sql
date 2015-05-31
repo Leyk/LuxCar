@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Options(
 	descriptionOption varchar(200) DEFAULT " ",
 	prixOption float(8,2),
 	PRIMARY KEY (idOption)
-	) ENGINE=InnoDB CHARACTER SET latin1;
+	) ENGINE=InnoDB CHARACTER SET latin1 auto_increment=100;
 
 -- Structure de la table 'Modèle'
 
