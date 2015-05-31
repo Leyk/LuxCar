@@ -1,14 +1,18 @@
+<!-- Vue formulaire d'inscription User.
+Champs à remplir : nom, prénom, adresse mail, mot de passe
+-->
+
 <div class="row">
 	<div class="col-md-12 col-md-offset-2">
-<?php
-if (isset($_REQUEST['erreurs']))
-{
-	foreach($_REQUEST['erreurs'] as $erreur)
-	{
-		echo '<h4 class="text-danger">'.$erreur.'</h4>';
-	}
-}
-?>
+		<?php
+		if (isset($_REQUEST['erreurs']))
+		{
+			foreach($_REQUEST['erreurs'] as $erreur)
+			{
+				echo '<h4 class="text-danger">'.$erreur.'</h4>';
+			}
+		}
+		?>
 		<form class="form-vertical" method="POST" action="index.php?uc=inscription&amp;action=valideInscription">
 			<fieldset>
 				<legend> Formulaire d'inscription : </legend>
@@ -44,6 +48,7 @@ if (isset($_REQUEST['erreurs']))
 						</div>
 					</div>
 				</div>
+				<input type="hidden" name="urlPrec" value="<?php echo $_SERVER["HTTP_REFERER"] ?>"/>  <!-- permet de mémoriser l'url de la page précédente pour rediriger le User dessus après son inscription -->
 				<button type="submit" class="btn btn-primary">Valider</button>
 				<button type="reset" class="btn btn-primary">Annuler</button>
 			</fieldset>

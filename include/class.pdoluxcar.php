@@ -4,10 +4,6 @@ include_once ("fonctions.php");
  * Classe d'accès aux données
  */
 
-// Affichage des erreurs
-error_reporting(E_ALL | E_STRICT);
-ini_set('display_errors',1);
-ini_set('html_errors', 1);
 
 class PdoLxc{
 
@@ -48,36 +44,36 @@ class PdoLxc{
 
 // Enregistre dans une variable session le token d'un utilisateur
 function connecter($id){
-		setcookie('idUser',$id);
+		setcookie('idUser',$id);             // affectation au cookie de l'ID du User qui se connecte
 		$token = uniqid();
-		setcookie('tokenUser',$token);
-		$req = 'UPDATE Inscrit SET token ="'.$token.'" WHERE idInscrit ='.$id;
+		setcookie('tokenUser',$token);       // affectation au cookie du token généré aléatoirement pour le User qui se connecte
+		$req = 'UPDATE Inscrit SET token ="'.$token.'" WHERE idInscrit ='.$id;    // insertion du token dans la base pour le User qui se connecte
 		$rs = PdoLxc::$monPdo->exec($req);
-		$reqselec = 'SELECT prenomInscrit FROM Inscrit WHERE token ="'.$token.'" AND idInscrit ='.$id;
+		$reqselec = 'SELECT prenomInscrit FROM Inscrit WHERE token ="'.$token.'" AND idInscrit ='.$id;   // récupération du prénom
 		$rsselec = PdoLxc::$monPdo->query($reqselec);
 		$user = $rsselec->fetch();
 		$prenom = $user['prenomInscrit'];
-		setcookie('prenomUser',$prenom);
+		setcookie('prenomUser',$prenom);   // affectation au cookie du prénom du User
 		return $rs;
 }
 
 // Déconnecte l'utilisateur
 function deconnecter($id) {
-		$req = 'UPDATE Inscrit SET token = NULL WHERE idInscrit='.$id;
+		$req = 'UPDATE Inscrit SET token = NULL WHERE idInscrit='.$id;  // mise à jour de la base de données -> token à NULL
 		$rs = PdoLxc::$monPdo->exec($req);
 		setcookie('idUser','',-1);
-		setcookie('tokenUser','',-1);
+		setcookie('tokenUser','',-1);			// destruction des cookies
 		setcookie('prenomUser','',-1);
 		setcookie('categorieUser','',-1);
 		return $rs;
 }
 
-// Teste si un utilisateur est connecté
+// Teste si un utilisateur est connecté. True si connecté, False sinon.
 function estConnecte(){
 	if (isset($_COOKIE['tokenUser']) and isset($_COOKIE['idUser'])){
 		$id = $_COOKIE['idUser'];
 		$token = $_COOKIE['tokenUser'];
-		$req = 'SELECT idInscrit FROM Inscrit WHERE token="'.$token.'" and idInscrit='.$id;
+		$req = 'SELECT idInscrit FROM Inscrit WHERE token="'.$token.'" and idInscrit='.$id; // Compare le contenu du cookie (token et idUser) avec la base de données
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		if(!is_array($ligne)){
@@ -92,15 +88,15 @@ function estConnecte(){
 	}
 }
 
-// Retourne les informations d'un utilisateur
+// Vérifie que le couple login/mot de passe est correct. Retourne l'ID du User si correct.
 	public function checkUser($login,$mdp){
-		$req = 'SELECT idInscrit from Inscrit where mailInscrit="'.$login.'" and pswInscrit="'.$mdp.'"';
+		$req = 'SELECT idInscrit from Inscrit where mailInscrit="'.$login.'" and pswInscrit= SHA1(CONCAT("LuxCar","'.$mdp.'","LuxCar"))';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
 
-// Vérifie si une adresse mail existe déjà
+// Vérifie si une adresse mail est déjà utilisée
 	public function checkMail($mail){
 			$req = 'SELECT mailInscrit FROM Inscrit WHERE mailInscrit="'.$mail.'"';
 			$rs = PdoLxc::$monPdo->query($req);
@@ -108,11 +104,12 @@ function estConnecte(){
 			return $ligne;
 	}
 
-// Créer un utilisateur qu'il s'inscrit
+// Créer un utilisateur qui s'inscrit. La catégorie sera de type "CL" (= Client)
 	public function creerNouvelUtilisateur($nom,$prenom,$mail,$mdp){
-		$req = 'INSERT INTO Inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) VALUES ("CL","'.$nom.'","'.$prenom.'","'.$mail.'","'.$mdp.'")';
-		$res=PdoLxc::$monPdo->exec($req);
-		return $res;
+		$req = 'INSERT INTO Inscrit (idCategorie, nomInscrit, prenomInscrit, mailInscrit, pswInscrit) VALUES ("CL","'.$nom.'","'.$prenom.'","'.$mail.'", SHA1(CONCAT("LuxCar","'.$mdp.'", "LuxCar")))';
+		$prep = PdoLxc::$monPdo->prepare($req);
+		$prep->execute(array());
+		return PdoLxc::$monPdo->lastInsertId(); // récupère l'ID de l'utilisateur qui vient de s'inscrire
 	}
 
 // Récupère les marques existantes dans la bd
@@ -140,7 +137,7 @@ function estConnecte(){
 		return $ligne;
 	}
 
-// Récupère l'utilisateur actuellement connecté
+// Récupère les infos de l'utilisateur actuellement connecté (qui correspondent au couple token/id)
 	public function getUserConnecte(){
 		if (isset($_COOKIE['tokenUser']) and isset($_COOKIE['idUser'])){
 			$req = 'SELECT idInscrit, nomInscrit, prenomInscrit, idCategorie from Inscrit where token="'.$_COOKIE['tokenUser'].'" AND idInscrit='.$_COOKIE['idUser'];
@@ -150,7 +147,7 @@ function estConnecte(){
 		}
 	}
 
-// Récupère le prix d'un modèle de voiture à partir de son ID
+// Récupère le prix d'un modèle de voiture à partir de son ID passé en paramètre
 	public function getPrixMod($id){
 		$req = 'SELECT prixModele from Modele WHERE idModele ='.$id ;
 		$rs = PdoLxc::$monPdo->query($req);
@@ -160,57 +157,41 @@ function estConnecte(){
 
 // Crée un devis et retourne son ID
 	public function creerDevis($mar, $mod){
-		$user = $this->getUserConnecte();
-		$iduser = $user['idInscrit'];
+		$user = $this->getUserConnecte();    
+		$iduser = $user['idInscrit'];   // récupère l'ID du User connecté
 		$lemodele = $this->getPrixMod($mod);
-		$prix = $lemodele['prixModele'];
-		$req = 'INSERT INTO Devis (idInscrit, idMarque, idModele, dateDevis, prixDevis) VALUES ('.$iduser.','.$mar.','.$mod.','.date("Ymd").','.$prix.')';
+		$prix = $lemodele['prixModele'];  // récupère le prix du modèle choisi
+		$req = 'INSERT INTO Devis (idInscrit, idMarque, idModele, dateDevis, prixDevis) VALUES ('.$iduser.','.$mar.','.$mod.','.date("Ymd").','.$prix.')';  // Création du devis avec la date du jour
 		$prep = PdoLxc::$monPdo->prepare($req);
 		$prep->execute(array());
 		return PdoLxc::$monPdo->lastInsertId(); // pour récupérer l'ID du devis qui vient d'être créé
 	}
 
-// Récupérer les devis d'un utilisateur connecté (dont l'id est passé en paramètre)
+// Récupère l'ensemble des devis d'un utilisateur dont l'id est passé en paramètre
 	public function getLesDevisUser($id){
-		$req = 'SELECT idDevis, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM Devis as d, Marque as ma, Modele as mo, Etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat AND d.idInscrit ='.$id;
+		$req = 'SELECT idDevis, idInscrit, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis FROM Devis as d, Marque as ma, Modele as mo, Etat as e WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat AND d.idInscrit ='.$id.' ORDER BY d.idDevis';
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
 	}
 
-// Récupérer le devis dont l'id est passé en paramètre, avec toutes les informations le concernant. Pour éviter que n'importe qui puisse regarder les devis de tout le monde
+// Récupère le devis dont l'id est passé en paramètre, avec toutes les informations le concernant. Pour éviter que n'importe qui puisse regarder les devis de tout le monde : l'id du User actuellement connecté est nécessaure
 	public function getDetailsDevis($iddev,$iduser){
-		$req = 'SELECT d.idDevis, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev.' AND d.idInscrit ='.$iduser;
+		$req = 'SELECT d.idDevis, i.idInscrit, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev.' AND d.idInscrit ='.$iduser;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}	
 
-// Récupérer le devis dont l'id est passé en paramètre. Cette fonction est a utiliser par les admin pour pouvoir récupérer n'importe quel devis aisément uniquement avec l'id du devis
+// Récupère le devis dont l'id est passé en paramètre. Cette fonction est à utiliser par les admin pour pouvoir récupérer n'importe quel devis aisément, uniquement avec l'id du devis
 	public function getLeDevis($iddev){
-		$req = 'SELECT d.idDevis, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev;
+		$req = 'SELECT d.idDevis, i.idInscrit, i.nomInscrit, i.prenomInscrit, i.mailInscrit, ma.nomMarque, mo.nomModele, d.idEtat, e.nomEtat, d.dateDevis, d.prixDevis, ma.logoMarque, mo.imgModele FROM Devis as d, Inscrit as i, Marque as ma, Modele as mo, Etat as e WHERE d.idInscrit = i.idInscrit AND d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND d.idEtat = e.idEtat AND d.idDevis='.$iddev;
 		$rs = PdoLxc::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
 
-// Ajouter des options à un devis
-	public function ajouterOption($iddev, $lesOptions){
-		$mesOptions = null ;  // mesOptions deviendra un tableau seulement si au moins une ligne est insérée dans la bd. Cela permet de tester si des options ont été ajouté et si c'est effectivement le cas, de les récupérer
-		foreach ($lesOptions as $uneOption){
-			$req = 'INSERT INTO LigneOption VALUES ('.$iddev.','.$uneOption.')';
-			$rs = PdoLxc::$monPdo->exec($req);
-			if($rs){
-				if(!isset($mesOptions)){
-					$mesOptions = [];
-				}
-				array_push($mesOptions, $uneOption);
-			}
-		}
-		return $mesOptions;
-	}
-
-// Récupérer les options dont l'id est passé en paramètre
+// Récupère les options pour un devis précis, dont l'id est passé en paramètre
 	public function getLesOptionsChoisies($iddev){
 			$req = 'SELECT o.idOption, o.nomOption, o.descriptionOption, o.prixOption FROM LigneOption as l, Options as o WHERE l.idOption = o.idOption AND idDevis='.$iddev;
 			$rs = PdoLxc::$monPdo->query($req);
@@ -218,7 +199,7 @@ function estConnecte(){
 			return $ligne;
 	}
 
-// Récupérer les options que ne possède pas le devis dont l'id est passé en paramètre
+// Récupère les options disponibles pour le devis dont l'id est passé en paramètre (celles qu'il ne contient pas)
 	public function getLesOptionsDispo($iddev){
 		$req = 'SELECT * FROM Options WHERE idOption NOT IN (SELECT o.idOption FROM Options as o, LigneOption as l WHERE o.idOption=l.idOption AND l.idDevis = '.$iddev.')';
 		$rs = PdoLxc::$monPdo->query($req);
@@ -226,7 +207,31 @@ function estConnecte(){
 		return $ligne;
 	}
 
-// Récupérer tous les devis existants (pour l'Admin uniquement)
+// Ajoute un ensemble d'options à un devis
+	public function ajouterOption($iddev, $lesOptions){
+		$mesOptions = null ;  // mesOptions deviendra un tableau seulement si au moins une ligne est insérée dans la bd. Cela permet de tester si des options ont été ajouté et si c'est effectivement le cas, de les récupérer
+		$ligne = null ;
+		foreach ($lesOptions as $uneOption){
+			$select = 'SELECT * FROM LigneOption WHERE idDevis='.$iddev.' AND idOption ='.$uneOption;
+			$reqSelect = PdoLxc::$monPdo->query($select);
+			$ligne = $reqSelect->fetch();
+			if (!is_array($ligne)){
+				$req = 'INSERT INTO LigneOption VALUES ('.$iddev.','.$uneOption.')';  // insertion de chacune des options (ID) une à une, pour le devis concerné
+				$rs = PdoLxc::$monPdo->exec($req);
+				$ligne = null ;
+				if($rs){
+					if(!isset($mesOptions)){
+						$mesOptions = [];      // si au moins une option est ajoutée à la bd (succès), mesOptions devient un tableau
+					}
+					array_push($mesOptions, $uneOption);  // ajout de l'option ajoutée à la bd dans le tableau
+				}
+			}
+		}
+		return $mesOptions;  // retourne null (aucune option ajoutée) ou un tableau (contenant les options ajoutées)
+	}
+
+
+// Récupère l'ensemble des devis existants, de tous les utilisateurs (pour l'Admin uniquement)
 	public function getLesDevis(){
 		$req = 'SELECT d.idDevis, d.idInscrit, nomMarque, nomModele,  nomEtat, dateDevis, prixDevis, nomInscrit, prenomInscrit, mailInscrit  FROM Devis as d, Marque as ma, Modele as mo, Etat as e, Inscrit as i WHERE d.idMarque = ma.idMarque AND d.idModele = mo.idModele AND e.idEtat = d.idEtat  AND i.idInscrit = d.idInscrit ORDER BY idDevis';
 		$rs = PdoLxc::$monPdo->query($req);
@@ -234,7 +239,7 @@ function estConnecte(){
 		return $ligne;
 	}
 
-// Savoir si un utilisateur connecté est admin
+// Test si l'utilisateur connecté est admin. Retourne True si admin, False sinon
 	public function estAdmin(){
 		if (isset($_COOKIE['tokenUser']) and isset($_COOKIE['idUser'])){
 				$req = 'SELECT idInscrit, nomInscrit, prenomInscrit, idCategorie from Inscrit where token="'.$_COOKIE['tokenUser'].'" AND idInscrit='.$_COOKIE['idUser'];
@@ -253,18 +258,45 @@ function estConnecte(){
 		}
 	}
 
-// Valider un devis
+// Valide un devis : change l'état à "VA"
 	public function validerDevis($iddev){
 		$req = 'UPDATE Devis SET idEtat ="VA" WHERE idDevis='.$iddev;
 		$rs = PdoLxc::$monPdo->exec($req);
 		return $rs;
 	}
 	
-// Créer une option
+// Crée une option avec les paramètres choisis par l'utilisateur
 	public function creerOption($nomOpt, $descOpt, $prixOpt){
 		$req = 'INSERT INTO Options (nomOption, descriptionOption, prixOption) VALUES ("'.$nomOpt.'","'.$descOpt.'",'.$prixOpt.')';
 		$rs = PdoLxc::$monPdo->exec($req);
 		return $rs;
 	}
-	
+
+// Supprimer le devis correspond à l'id devis et l'id user qui sont passés en paramètre
+	public function deleteDevis($iddev, $iduser){
+		$req = 'DELETE FROM Devis WHERE idDevis='.$iddev.' AND idInscrit ='.$iduser;
+		$rs = PdoLxc::$monPdo->exec($req);
+		return $rs;
+	}
+
+	public function rechercher($str){
+		$reqMar = 'SELECT * FROM Marque WHERE nomMarque ="'.$str.'"';
+		$rsMar = PdoLxc::$monPdo->query($reqMar);
+		$ligneMar = $rsMar->fetch();
+		if(is_array($ligneMar)){
+			return $ligneMar;
+		}
+		else {
+			$reqMod = 'SELECT * FROM Modele WHERE nomModele ="'.$str.'"';
+			$rsMod = PdoLxc::$monPdo->query($reqMod);
+			$ligneMod = $rsMod->fetch();
+			if(is_array($ligneMod)){
+				return $ligneMod;
+			}
+			else {
+				$ligne = null;
+				return $ligne;
+			}
+		}
+	}
 }

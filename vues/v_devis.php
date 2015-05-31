@@ -1,3 +1,8 @@
+<!-- Vue que l'on obtient lorsque le User souhaite voir la liste des devis. (Soit les siens -> onglet "Mes Devis", soit l'ensemble des devis de la base -> onglet "Les Devis Client" en tant qu'admin)
+Affiche :
+- Référence du devis, date, état (+ id du User à qui il appartient dans le cas où on est dans l'administration)
+- Marque choisie, modèle choisi, prix TTC et un bouton "Aperçu" offrant la possibilité de consulter le détail du devis (vues v_detailsDevis) -->
+
 <div class="row">
 <?php
 if (isset($_REQUEST['info']))
@@ -18,8 +23,9 @@ if (isset($_REQUEST['erreurs']))
 else{
 ?>
   <table class="table table-bordered table-striped table-condensed">
+<!-- Affichage "Mes Devis" ou "Liste des devis clients" selon le contexte + le nombre de devis -->
     <caption>
-      <?php if (!$pdo->estAdmin()) { ?>
+      <?php if ($_REQUEST['uc'] == "devis") { ?>
       <h4>Vos devis</h4>
       <?php } else { ?>
       <h4>Liste des devis clients</h4>
@@ -28,6 +34,8 @@ else{
         echo "Vous avez ";
         } echo $nbDevis?> devis.</h5>
     </caption>
+
+  <!-- Contenu du tableau de présentation des devis -->
     <tbody>
     <th> Référence</th>
     <?php if ($pdo->estAdmin() and ($_REQUEST['uc']=="administration")) {?><th>Id Inscrit</th><?php } ?>

@@ -1,14 +1,19 @@
+<!-- Vue formulaire de création d'option. Condition : être connecté en tant qu'admin.
+Champs obligatoires : nom de l'option, prix de l'option (float)
+Facultatif : description de l'option
+-->
+
 <div class="row">
 	<div class="col-md-12 col-md-offset-2">
-<?php
-if (isset($_REQUEST['erreurs']))
-{
-	foreach($_REQUEST['erreurs'] as $erreur)
-	{
-		echo '<h4 class="text-danger">'.$erreur.'</h4>';
-	}
-}
-?>
+		<?php
+		if (isset($_REQUEST['erreurs']))
+		{
+			foreach($_REQUEST['erreurs'] as $erreur)
+			{
+				echo '<h4 class="text-danger">'.$erreur.'</h4>';
+			}
+		}
+		?>
 		<form class="form-vertical" method="POST" action="index.php?uc=administration&amp;action=valideCreationOption">
 			<fieldset>
 				<legend> Définition de l'option à créer : </legend>
@@ -32,7 +37,7 @@ if (isset($_REQUEST['erreurs']))
 					<label for="nom">Prix de l'option</label>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4">
-							<input class="form-control" id="prixOption" type="number" step="any" name="prixOption" max="999999.99" required>
+							<input class="form-control" id="prixOption" type="number" step="any" name="prixOption" max="999999.99" required>  <!-- Montant max = 999999.99. Flottants acceptés -->
 						</div>
 					</div>
 				</div>
