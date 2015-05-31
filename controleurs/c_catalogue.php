@@ -39,18 +39,8 @@ switch ($action) {
 /* L'utilisateur tappe un mot à rechercher dans la barre de recherche */
 	case 'recherche':{
 		if(isset($_POST['recherche'])){
-			$resRecherche = $pdo->rechercher($_POST['recherche']);
-			if(isset($resRecherche['idModele'])){
-				include ("vues/v_modele");
-				break;
-			}
-			else if(isset($resRecherche['idMarque'])){
-				include ("vues/v_marque");
-			}
-			else{
-				ajouterErreur("Aucune donnée ne correspond à votre recherche","catalogue");
-				include("vues/v_accueil.html");
-			}
+			$resRecherche = $pdo->rechercher($_POST['recherche']);     // Recherche du terme soumis par User
+			include ("vues/v_recherche.php");            
 		}
 		else {
 			header('Refresh : 1; URL=index.php?uc=accueil'); // Redirection vers la page d'accueil si clique sur le bouton "Chercher" mais champ vide
