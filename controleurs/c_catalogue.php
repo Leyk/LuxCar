@@ -36,6 +36,19 @@ switch ($action) {
 		include("vues/v_option.php");
 		break;
 	}
+/* L'utilisateur tappe un mot à rechercher dans la barre de recherche */
+	case 'recherche':{
+		if(isset($_POST['recherche'])){
+			//$uneMarque = $pdo->rechercher($_POST['recherche']);
+			//echo $uneMarque['idMarque'];
+			echo $_REQUEST['recherche'];
+
+		}
+		else {
+			header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil si clique sur le bouton "Chercher" mais champ vide
+		}
+		break;
+	}
 /* Pour les URL non reconnues ici */
 	default:{
 		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';

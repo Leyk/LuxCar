@@ -7,9 +7,9 @@ switch ($action) {
 /* le User valide le formulaire de connexion */
 	case 'valideConnexion':{
 		if (!$pdo->estConnecte()){   // Vérification User pas déjà connecté
-			if (isset($_REQUEST['login']) and isset($_REQUEST['mdp'])){
-				$login = $_REQUEST['login'];
-				$mdp = $_REQUEST['mdp'];
+			if (isset($_POST['login']) and isset($_POST['mdp'])){
+				$login = $_POST['login'];
+				$mdp = $_POST['mdp'];
 				$utilisateur = $pdo->checkUser($login,$mdp);   // Vérification login/mot de passe corrects
 				if(!is_array($utilisateur)){
 					ajouterErreur("Login ou mot de passe incorrecte","connexion");  // Erreur identifiants incorrects

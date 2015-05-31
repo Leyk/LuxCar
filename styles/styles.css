@@ -36,6 +36,11 @@ h4 {
 	vertical-align: center;
 }
 
+.ajustement input {
+  width: 150px;
+  display: inline-block;
+}
+
 section.accueil {
   width: 100%;
   margin: 0 auto;

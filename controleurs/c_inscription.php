@@ -11,11 +11,11 @@ switch ($action) {
 	}
 /* le User valide son inscription */
 	case 'valideInscription':{        
-		if(isset($_REQUEST['nom']) and isset($_REQUEST['prenom']) and isset($_REQUEST['mail']) and isset($_REQUEST['mdp'])){  // Vérification que les champs du formulaire sont remplis
-			$nom = $_REQUEST['nom'];
-			$prenom = $_REQUEST['prenom'];
-			$mail = $_REQUEST['mail'];
-			$mdp = $_REQUEST['mdp'];
+		if(isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['mail']) and isset($_POST['mdp'])){  // Vérification que les champs du formulaire sont remplis
+			$nom = $_POST['nom'];
+			$prenom = $_POST['prenom'];
+			$mail = $_POST['mail'];
+			$mdp = $_POST['mdp'];
 			$utilisateur = $pdo->checkMail($mail);   // Vérification que l'email saisie n'existe pas déjà dans la BD
 			if(is_array($utilisateur)){
 				ajouterErreur("Cette adresse mail est déjà utilisée","inscription"); // Erreur si email déjà utilisé

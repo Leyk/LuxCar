@@ -190,22 +190,6 @@ function estConnecte(){
 		return $ligne;
 	}
 
-// Ajoute un ensemble d'options à un devis
-	public function ajouterOption($iddev, $lesOptions){
-		$mesOptions = null ;  // mesOptions deviendra un tableau seulement si au moins une ligne est insérée dans la bd. Cela permet de tester si des options ont été ajouté et si c'est effectivement le cas, de les récupérer
-		foreach ($lesOptions as $uneOption){
-			$req = 'INSERT INTO LigneOption VALUES ('.$iddev.','.$uneOption.')';  // insertion de chacune des options (ID) une à une, pour le devis concerné
-			$rs = PdoLxc::$monPdo->exec($req);
-			if($rs){
-				if(!isset($mesOptions)){
-					$mesOptions = [];      // si au moins une option est ajoutée à la bd (succès), mesOptions devient un tableau
-				}
-				array_push($mesOptions, $uneOption);  // ajout de l'option ajoutée à la bd dans le tableau
-			}
-		}
-		return $mesOptions;  // retourne null (aucune option ajoutée) ou un tableau (contenant les options ajoutées)
-	}
-
 // Récupère les options pour un devis précis, dont l'id est passé en paramètre
 	public function getLesOptionsChoisies($iddev){
 			$req = 'SELECT o.idOption, o.nomOption, o.descriptionOption, o.prixOption FROM LigneOption as l, Options as o WHERE l.idOption = o.idOption AND idDevis='.$iddev;
@@ -221,6 +205,30 @@ function estConnecte(){
 		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $ligne;
 	}
+
+// Ajoute un ensemble d'options à un devis
+	public function ajouterOption($iddev, $lesOptions){
+		$mesOptions = null ;  // mesOptions deviendra un tableau seulement si au moins une ligne est insérée dans la bd. Cela permet de tester si des options ont été ajouté et si c'est effectivement le cas, de les récupérer
+		$ligne = null ;
+		foreach ($lesOptions as $uneOption){
+			$select = 'SELECT * FROM LigneOption WHERE idDevis='.$iddev.' AND idOption ='.$uneOption;
+			$reqSelect = PdoLxc::$monPdo->query($select);
+			$ligne = $reqSelect->fetch();
+			if (!is_array($ligne)){
+				$req = 'INSERT INTO LigneOption VALUES ('.$iddev.','.$uneOption.')';  // insertion de chacune des options (ID) une à une, pour le devis concerné
+				$rs = PdoLxc::$monPdo->exec($req);
+				$ligne = null ;
+				if($rs){
+					if(!isset($mesOptions)){
+						$mesOptions = [];      // si au moins une option est ajoutée à la bd (succès), mesOptions devient un tableau
+					}
+					array_push($mesOptions, $uneOption);  // ajout de l'option ajoutée à la bd dans le tableau
+				}
+			}
+		}
+		return $mesOptions;  // retourne null (aucune option ajoutée) ou un tableau (contenant les options ajoutées)
+	}
+
 
 // Récupère l'ensemble des devis existants, de tous les utilisateurs (pour l'Admin uniquement)
 	public function getLesDevis(){
@@ -269,5 +277,11 @@ function estConnecte(){
 		$rs = PdoLxc::$monPdo->exec($req);
 		return $rs;
 	}
-	
+
+	public function rechercher($str){
+		$req = 'SELECT * FROM Marque WHERE nomMarque ="'.$str.'"';
+		$rs = PdoLxc::$monPdo->query($str);
+		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
+		return $ligne;
+	}
 }

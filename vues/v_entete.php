@@ -16,13 +16,7 @@
                 <header class="row">
                     <div class="row">
                         <div class="col-md-8">
-                        <?php if ($pdo->estConnecte()){ 
-                            echo "Bonjour ".$_COOKIE['prenomUser'];     // "Bonjour" personnalité au User connecté
-                         }
-                         else {
-                             echo "Bonjour";
-                         }
-                        ?>
+                 
         	            </div>
         	       </div>
     	       </header>
