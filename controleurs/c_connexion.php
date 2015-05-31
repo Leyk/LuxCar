@@ -19,7 +19,8 @@ switch ($action) {
 					$id = $utilisateur['idInscrit'];
 					$co = $pdo->connecter($id);   // Connexion de l'utilisateur -> envoie des cookies, attribution d'un token dans la BD
 					if ($co) {
-						header('Refresh : 0; URL='.$_POST['url']);  // Refresh de la page courante
+						header('Refresh : 0; URL=index.php?uc=accueil');  // Refresh de la page courante
+						exit();
 					}
 				}
 			}
@@ -29,6 +30,7 @@ switch ($action) {
 		}
 		else {
 			header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection accueil si User déjà connecté
+			exit();
 		}
 		break;
 	}
@@ -37,14 +39,16 @@ switch ($action) {
 		if ($pdo->estConnecte()){            // Déconnexion si un User est connecté
 			$id = $_COOKIE['idUser'];
 			$deco = $pdo->deconnecter($id);
+			header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
+			exit();
 		}
-		header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
 		break;
 	}
 /* Pour les URL non reconnues ici */
 	default:{
 		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
-		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
+		header('Refresh : 0; URL=index.php?uc=accueil'); // Redirection vers la page d'accueil
+		exit();
 		break;
 	}
 }

@@ -27,6 +27,7 @@ switch ($action) {
 					ajouterInfo("Inscription réussie","inscription");
 					$pdo->connecter($id);   // Connexion de l'utilisateur -> envoie des cookies, attribution d'un token dans la BD
 					header('Refresh : 0; URL='.$_POST['urlPrec']);  // Redirection vers la page précédent l'inscription
+					exit();
 				}
 				else{
 					ajouterErreur("Echec de l'inscription","inscription");  // Problème au niveau de la création du user
@@ -44,6 +45,7 @@ switch ($action) {
 		default:{
 		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
 		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
+		exit();
 		break;
 	}
 }

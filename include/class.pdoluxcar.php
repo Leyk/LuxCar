@@ -279,9 +279,23 @@ function estConnecte(){
 	}
 
 	public function rechercher($str){
-		$req = 'SELECT * FROM Marque WHERE nomMarque ="'.$str.'"';
-		$rs = PdoLxc::$monPdo->query($str);
-		$ligne = $rs->fetchAll(PDO::FETCH_ASSOC);
-		return $ligne;
+		$reqMar = 'SELECT * FROM Marque WHERE nomMarque ="'.$str.'"';
+		$rsMar = PdoLxc::$monPdo->query($reqMar);
+		$ligneMar = $rsMar->fetch();
+		if(is_array($ligneMar)){
+			return $ligneMar;
+		}
+		else {
+			$reqMod = 'SELECT * FROM Modele WHERE nomModele ="'.$str.'"';
+			$rsMod = PdoLxc::$monPdo->query($reqMod);
+			$ligneMod = $rsMod->fetch();
+			if(is_array($ligneMod)){
+				return $ligneMod;
+			}
+			else {
+				$ligne = null;
+				return $ligne;
+			}
+		}
 	}
 }

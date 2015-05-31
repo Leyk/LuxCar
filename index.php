@@ -1,5 +1,4 @@
 <?php
-
 setcookie('idUser', '', time() + 365*24*3600, '/', null, false, true); // Cookie qui contiendra l'ID de l'utilisateur
 setcookie('prenomUser', '', time() + 365*24*3600, '/', null, false, true); // Cookie qui contiendra le prénom de l'utilisateur
 setcookie('tokenUser', '', time() + 365*24*3600, '/', null, false, true); // Cookie qui contiendra le token généré

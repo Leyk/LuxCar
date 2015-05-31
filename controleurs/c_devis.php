@@ -50,11 +50,13 @@ switch ($action) {
 			else{
 				ajouterErreur("Erreur de récupération des données utilisateur","devis");   // Erreur de connexion utilisateur
 				header('Refresh : 1; URL=index.php?uc=accueil');
+				exit();
 			}
 		}
 		else {
 			ajouterErreur("Il vous faut être connecté pour consulter vos devis !","devis");  
 			header('Refresh : 1; URL=index.php?uc=accueil');   // Redirection vers accueil si User pas connecté
+			exit();
 		}
 	break;	
 	}
@@ -76,6 +78,7 @@ switch ($action) {
 					if(!is_array($leDevis)){
 						ajouterErreur("Erreur de chargement du devis, veuillez vérifier sa référence","devis");  // Erreur s'il n'y a pas de devis
 						header('Refresh : 1; URL=index.php?uc=accueil');
+						exit();
 					}
 					else {
 						include("vues/v_detailsDevis.php");
@@ -89,11 +92,13 @@ switch ($action) {
 			else {
 				ajouterErreur("Il vous faut choisir un devis à consulter !","devis"); // Erreur si aucun devis sélectionné
 				header('Refresh : 2; URL=index.php?uc=accueil');
+				exit();
 			}	
 		}
 		else {
 			ajouterErreur("Il vous faut être connecté pour consulter vos devis !","devis"); // Erreur si User pas connecté
 			header('Refresh : 2; URL=index.php?uc=accueil');
+			exit();
 		}
 	if(isset($lesOptions)){
 		if(count($lesOptions)>0){
@@ -135,6 +140,7 @@ switch ($action) {
 		}
 		else{
 			header('Refresh : 0; URL=index.php?uc=accueil');  
+			exit();
 		}
 		break;
 	}
@@ -150,25 +156,30 @@ switch ($action) {
 					if ($ok){
 						ajouterInfo("Le devis ".$iddev." a été supprimé.", "devis");
 						header('Refresh : 2; URL=index.php?uc=devis&action=consulterDevis');  // Redirection vers la liste des devis si suppression effectuée
+						exit();
 					}
 					else {
 						ajouterErreur("Erreur : le devis".$iddev. " n'a pas pu être supprimé","devis");
 						header('Refresh : 2; URL=index.php?uc=devis&action=detailsDevis&id='.$iddev);  // Redirection vers le devis si suppression échouée
+						exit();
 					}
 				}
 				else {
 					ajouterErreur("Erreur de récupération des données utilisateur","devis"); // Erreur avec la connexion de l'utilisation
 					header('Refresh : 1; URL=index.php?uc=accueil');
+					exit();
 				}
 			}
 			else {
 				ajouterErreur("Il vous faut choisir un devis à supprimer !","devis"); // Erreur si aucun devis sélectionné
 				header('Refresh : 2; URL=index.php?uc=accueil');
+				exit();
 			}	
 		}
 		else {
 			ajouterErreur("Il vous faut être connecté pour supprimer un devis !","devis"); // Erreur si User pas connecté
 			header('Refresh : 2; URL=index.php?uc=accueil');
+			exit();
 		}
 		break;
 	}
@@ -176,6 +187,7 @@ switch ($action) {
 	default:{
 		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
 		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
+		exit();
 		break;
 	}
 }

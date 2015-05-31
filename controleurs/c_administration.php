@@ -31,9 +31,11 @@ if ($pdo->estConnecte()){
 						$urlPrec = $_SERVER["HTTP_REFERER"] ;  // permet de mémoriser l'url de la page précédente pour rediriger le User dessus
 						if (isset($urlPrec)){
 							header('Refresh : 2; URL='.$urlPrec);  // Redirection vers le devis venant d'être validé
+							exit();
 						}
 						else {
 							header('Refresh : 2; Url=index.php?uc=administration&action=consulterDevis');
+							exit();
 						}
 					}
 					else {
@@ -64,7 +66,7 @@ if ($pdo->estConnecte()){
 					$rs = $pdo->creerOption($_POST['nomOption'], $_POST['descOption'], $_POST['prixOption']);   // Insertion dans la base
 					if($rs){
 						ajouterInfo("Félicitation, l'option ".$_POST['nomOption']." a bien été créée !","admin");
-						header('Refresh : 1; URL=index.php?uc=accueil');  // Redirection vers l'accueil si l'insertion a bien été effectuée
+						include("vues/v_fromOption.php");  
 					}
 					else{
 						ajouterErreur("Erreur : un problème est survenu lors de la création de votre option. Vérifiez que les champs sont valides","admin"); // Erreur : option non créée dans la BD
@@ -82,12 +84,14 @@ if ($pdo->estConnecte()){
 /* Redirection si tentative d'accès par un User non Admin */
 	else {
 		ajouterErreur("Erreur : il faut être connecté en tant qu'administrateur !","admin");
-		header('Refresh : 0; URL=index.php?uc=accueil');
+		include ("vues/v_accueil.html");
+		exit();
 	}
 }
 else {
 	ajouterErreur("Erreur : il faut être connecté en tant qu'administrateur !","admin");
-	header('Refresh : 0; URL=index.php?uc=accueil');
+	include ("vues/v_accueil.html");
+	exit();
 }
 
 

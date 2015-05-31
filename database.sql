@@ -98,28 +98,31 @@ delimiter //
 CREATE TRIGGER maj_prix_devis
 AFTER INSERT ON LigneOption FOR EACH ROW
 BEGIN
-	DECLARE prixOp float(8,2);
-	SET @prixOp = (SELECT prixOption FROM Options WHERE idOption = NEW.idOption); 
-	UPDATE Devis SET prixDevis = prixDevis + @prixOp WHERE idDevis = NEW.idDevis;
+	DECLARE v_prixOp float(8,2);
+	SET @v_prixOp = (SELECT prixOption FROM Options WHERE idOption = NEW.idOption); 
+	UPDATE Devis SET prixDevis = prixDevis + @v_prixOp WHERE idDevis = NEW.idDevis;
 END;//
 delimiter ;
 
 /* Ce trigger sert à vérifier que les options sont à jours :
 Lorsqu'une option est créée, on vérifie que le nom n'existe pas déjà en parcourant toutes les options existantes
 Si elle existe déjà, on parcourt alors toutes les lignes d'options (des devis) qui la contiennent afin de remplacer l'id de l'option par celle qui vient d'être créée
-En effet on considère que la seconde est une "mise à jour" de l'option déjà existante, devenue obsolète */
+En effet on considère que la seconde est une "mise à jour" de l'option déjà existante, devenue obsolète 
+Dans le cas où le Devis est déjà en état "Validé", la modification n'est pas appliquée. C'est pour cela que l'on ne supprime pas de la base les 'anciennes' options */
 
 delimiter //
 CREATE TRIGGER check_exist_option_devis
-BEFORE INSERT ON Options FOR EACH ROW
+AFTER INSERT ON Options FOR EACH ROW
 BEGIN 
 	DECLARE nomOpt varchar(50);   -- Prendra le nom de chacune des options présente dans la bd 
 	DECLARE idOpt smallint(4); 		-- Prendra l'id de chacune des options présente dans la bd */
-	DECLARE idLiOpt smallint(4);    -- Prendra l'id' de chacune des options présente dans chacune des 'ligneOption' (correspondant à un devis) */
+	DECLARE idLiOpt smallint(4);    -- Prendra l'id de chacune des options présente dans chacune des 'ligneOption' (correspondant à un devis) */
+	DECLARE v_etat char(2);          -- Prendra l'état du devis pour vérifier si on modifie la ligne option ou pas
+	DECLARE idDev smallint(4);       -- Prendra l'id du devis concerné par l'éventuelle modification de ligne option
 
 	DECLARE done INTEGER DEFAULT FALSE;   -- Pour le curseur des options 
 	DECLARE cursOpt CURSOR FOR SELECT idOption, nomOption FROM Options;  -- Curseur de parcours des options de la bd 
-	DECLARE cursLigneOpt CURSOR FOR SELECT idOption FROM ligneOption; 	-- Curseur de parcours des ligneOption 
+	DECLARE cursLigneOpt CURSOR FOR SELECT idOption, idDevis FROM ligneOption; 	-- Curseur de parcours des ligneOption 
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE ;
 
 	OPEN cursOpt;
@@ -132,16 +135,19 @@ BEGIN
 		BLOCK2:BEGIN
 			DECLARE finished INTEGER DEFAULT FALSE;  -- Pour le curseur des ligneOption 
 			DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = TRUE ;
-			IF UPPER(TRIM(New.nomOption)) = UPPER(TRIM(nomOpt)) THEN   -- Comparaison de chacun des noms d'options existants avec le nouveau en création 
+			IF UPPER(REPLACE(New.nomOption,' ','')) = UPPER(REPLACE(nomOpt,' ','')) THEN   -- Comparaison de chacun des noms d'options existants avec le nouveau en création 
 				OPEN cursLigneOpt;
 				cursLigneOpt_loop: LOOP    -- Si correspondance, on boucle sur les ligneOption pour les modifier */
-					FETCH cursLigneOpt INTO idLiOpt;
+					FETCH cursLigneOpt INTO idLiOpt, idDev;
 					IF finished THEN
 						CLOSE cursLigneOpt;
 						LEAVE cursLigneOpt_loop;   -- Fin de la boucle si plus de lignes 
 					END IF;
 					IF idLiOpt = idOpt THEN 
-						UPDATE ligneOption SET idOption = New.idOption WHERE idOption = idOpt;  -- Modification de l'id Option de la ligne si correspondance 
+						SET @v_etat = (SELECT idEtat FROM Devis WHERE idDevis = idDev);   -- Vérification que le devis concerné par la ligne option n'est pas déjà validé
+						IF @v_etat <> 'VA' THEN
+							UPDATE ligneOption SET idOption = New.idOption WHERE idOption = idOpt AND idDevis = idDev;  -- Modification de l'id Option de la ligne si correspondance avec l'option modifiée et si Devis pas validé
+						END IF;
 					END IF;
 				END LOOP;
 			END IF ;
@@ -150,4 +156,3 @@ BEGIN
 	CLOSE cursOpt;	
 END;//
 delimiter ;
-

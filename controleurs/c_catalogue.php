@@ -39,21 +39,31 @@ switch ($action) {
 /* L'utilisateur tappe un mot à rechercher dans la barre de recherche */
 	case 'recherche':{
 		if(isset($_POST['recherche'])){
-			//$uneMarque = $pdo->rechercher($_POST['recherche']);
-			//echo $uneMarque['idMarque'];
-			echo $_REQUEST['recherche'];
-
+			$resRecherche = $pdo->rechercher($_POST['recherche']);
+			if(isset($resRecherche['idModele'])){
+				include ("vues/v_modele");
+				break;
+			}
+			else if(isset($resRecherche['idMarque'])){
+				include ("vues/v_marque");
+			}
+			else{
+				ajouterErreur("Aucune donnée ne correspond à votre recherche","catalogue");
+				include("vues/v_accueil.html");
+			}
 		}
 		else {
-			header('Refresh : 0; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil si clique sur le bouton "Chercher" mais champ vide
+			header('Refresh : 1; URL=index.php?uc=accueil'); // Redirection vers la page d'accueil si clique sur le bouton "Chercher" mais champ vide
+			exit(); 
 		}
 		break;
 	}
 /* Pour les URL non reconnues ici */
 	default:{
 		echo '<h4 class="text-danger"> Erreur : la page demandée n\'existe pas. </h4>';
-		header('Refresh : 2; URL=index.php?uc=accueil');  // Redirection vers la page d'accueil
-		break;
+		header('Refresh : 1; URL=index.php?uc=accueil'); // Redirection vers la page d'accueil 
+		exit(); 
+		break; 
 	}
 }
 ?>
