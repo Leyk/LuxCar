@@ -11,14 +11,11 @@
         <link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet">
         <link href="styles/styles.css" rel="stylesheet"> 
 		<title>Luxurious Cars</title>
+    </head>
         <body>
             <div class="container">
                 <header class="row">
-                    <div class="row">
-                        <div class="col-md-8">
-                 
-        	            </div>
-        	       </div>
+                        <img class="img-header" src="images/header.jpg">
     	        </header>
             
         
