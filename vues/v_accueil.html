@@ -15,8 +15,7 @@
           <img class="first-slide" src="images/carousel_pic1.jpeg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h3>Choisissez la voiture de vos rêves !</h3>   <!-- bouton lien vers le choix d'une marque -->
-              <p><a class="btn btn-lg btn-primary" href="index.php?uc=catalogue&amp;action=choisirMarque" role="button">Les voitures</a></p>
+             <!-- <p><a class="btn btn-lg btn-primary" href="index.php?uc=catalogue&amp;action=choisirMarque" role="button">Les voitures</a></p> -->
             </div>
           </div>
         </div>
@@ -24,8 +23,7 @@
           <img class="second-slide" src="images/carousel_pic2.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h3>Choisissez les options qui vous correspondent le mieux !</h3> <!-- bouton lien vers le tableau d'options existantes -->
-              <p><a class="btn btn-lg btn-primary" href="index.php?uc=catalogue&amp;action=voirOptions" role="button">Les options</a></p>
+              <!--<p><a class="btn btn-lg btn-primary" href="index.php?uc=catalogue&amp;action=voirOptions" role="button">Les options</a></p> -->
             </div>
           </div>
         </div>
@@ -33,10 +31,6 @@
           <img class="third-slide" src="images/carousel_pic3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h3>Inscrivez-vous et créez un devis personnalisé !</h3> <!-- bouton lien vers le formulaire d'inscription -->
-              <?php if(!$pdo->estConnecte()){?>
-              <p><a class="btn btn-lg btn-primary" href="index.php?uc=inscription&amp;action=demandeInscription" role="button">S'inscrire</a></p>
-              <?php }?>
             </div>
           </div>
         </div>
@@ -44,7 +38,6 @@
           <img class="fourth-slide" src="images/carousel_pic4.jpg" alt="Fourth slide">
           <div class="container">
             <div class="carousel-caption">
-              <h3>Faites valider votre devis par nos professionnels</h3>
             </div>
           </div>
         </div>
@@ -89,7 +82,7 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">Inscrivez-vous. <span class="text-muted">Créez un devis.</span></h2>
+          <h2 class="featurette-heading"><a href="index.php?uc=inscription&amp;action=demandeInscription">Inscrivez-vous. </a><span class="text-muted">Créez un devis.</span></h2>
           <p class="lead">Rien de plus simple. Et vous ne le regretterez pas. Une fois votre devis établi vous avez la possibilité de choisir d'être contacté par l'un de nos professionnels afin de vous conseiller et de faire valider votre commande.</p>
         </div>
         <div class="col-md-5">

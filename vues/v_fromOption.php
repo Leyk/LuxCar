@@ -4,7 +4,7 @@ Facultatif : description de l'option
 -->
 
 <div class="row">
-	<div class="col-md-12 col-md-offset-2">
+	<div class="col-md-8 col-md-offset-2">
 		<?php
 		if (isset($_REQUEST['erreurs']))
 		{

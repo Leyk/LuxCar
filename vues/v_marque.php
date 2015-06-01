@@ -16,7 +16,7 @@ Affiche :
   ?>
   <table class="table table-bordered table-striped table-condensed">
     <caption>
-      <h4>Nos marques disponibles</h4>
+      <h3>Nos marques disponibles</h3>
     </caption>
 <!-- Contenu du tableau de présentation des marques -->
     <tbody>

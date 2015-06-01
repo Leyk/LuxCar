@@ -7,23 +7,23 @@ Affiche :
 <div class="row">
   <?php
   if (isset($_REQUEST['info']))
-  {
+  { ?> <div class="information"> <?php 
     foreach($_REQUEST['info'] as $linfo)
     {
       echo '<h4 class="text-success">'.$linfo.'</h4>';
     }
-  }
+  } ?> </div> <?php
 
   if (isset($_REQUEST['erreurs']))
-  {
+  { ?> <div class="information"> <?php 
     foreach($_REQUEST['erreurs'] as $erreur)
     {
       echo '<h4 class="text-danger">'.$erreur.'</h4>';
     }
-  }
+  ?> </div> <?php } 
   else{
     if(isset($crea)){    // On regarde si on est dans le cas où un devis est sélectionné
-  ?>
+  ?></div>
       <form method="post" action ="index.php?uc=devis&amp;action=ajouterOption&amp;dev=<?php echo $crea ?>"> <?php } ?> <!-- si un devis est sélectionné : déclaration d'un formulaire pour permettre d'envoyer les options sélectionnées -->
         <table class="table table-bordered table-striped table-condensed">
           <caption>

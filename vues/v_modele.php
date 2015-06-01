@@ -19,7 +19,7 @@ Affiche :
   ?>
   <table class="table table-bordered table-striped table-condensed">
     <caption>
-      <h4>Nos modèles disponibles</h4>
+      <h3>Nos modèles disponibles</h3>
       <?php if(!$pdo->estConnecte()){
         echo "Vous devez vous inscrire ou vous connecter pour créer un devis.";
       } ?>
